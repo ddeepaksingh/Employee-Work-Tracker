@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}Report History{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">Home</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Report History</li>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Report History</h1>
+    <p class="page-subtitle">Search, filter, and view all your past submitted daily reports</p>
+  </div>
+  <div>
+    <a href="{% url 'reports:report_submit' %}" class="btn btn-primary">
+      <i class="bi bi-plus-lg me-1"></i> Submit Today's Report
+    </a>
+  </div>
+</div>
+
+<!-- Filters and Search Card -->
+<div class="card border-0 rounded-custom shadow-sm mb-4 bg-surface">
+  <div class="card-body py-3">
+    <form method="get" class="row g-3 align-items-center">
+      <!-- Keyword search -->
+      <div class="col-md-4">
+        <div class="input-group">
+          <span class="input-group-text bg-transparent border-end-0 border-custom text-muted"><i class="bi bi-search"></i></span>
+          <input type="text" name="keyword" value="{{ request.GET.keyword }}" class="form-control border-start-0" placeholder="Search report content...">
+        </div>
+      </div>
+      
+      <!-- Date range selector -->
+      <div class="col-md-3">
+        <select name="date_range" id="id_filter_range" class="form-select">
+          <option value="">All Time</option>
+          <option value="today" {% if request.GET.date_range == 'today' %}selected{% endif %}>Today</option>
+          <option value="yesterday" {% if request.GET.date_range == 'yesterday' %}selected{% endif %}>Yesterday</option>
+          <option value="week" {% if request.GET.date_range == 'week' %}selected{% endif %}>Last 7 Days</option>
+          <option value="month" {% if request.GET.date_range == 'month' %}selected{% endif %}>Last 30 Days</option>
+          <option value="current_month" {% if request.GET.date_range == 'current_month' %}selected{% endif %}>Current Month</option>
+          <option value="prev_month" {% if request.GET.date_range == 'prev_month' %}selected{% endif %}>Previous Month</option>
+          <option value="custom" {% if request.GET.date_range == 'custom' %}selected{% endif %}>Custom Date Range</option>
+        </select>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-outline-primary w-100">Apply Filters</button>
+      </div>
+      
+      {% if request.GET.keyword or request.GET.date_range %}
+        <div class="col-md-2">
+          <a href="{% url 'reports:report_history' %}" class="btn btn-light w-100">Reset</a>
+        </div>
+      {% endif %}
+    </form>
+
+    <!-- Custom Date Range Form Fields (Shown only when Custom Date Range is selected via JS) -->
+    <div id="custom-date-range" class="row g-3 mt-2 border-top border-custom pt-3" style="display: none;">
+      <div class="col-md-4">
+        <label for="id_filter_from" class="form-label small text-muted">From Date</label>
+        <input type="date" name="date_from" id="id_filter_from" value="{{ request.GET.date_from }}" class="form-control form-control-sm" />
+      </div>
+      <div class="col-md-4">
+        <label for="id_filter_to" class="form-label small text-muted">To Date</label>
+        <input type="date" name="date_to" id="id_filter_to" value="{{ request.GET.date_to }}" class="form-control form-control-sm" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Reports listing -->
+<div class="row g-4">
+  {% if reports %}
+    {% for r in reports %}
+      <div class="col-md-6 col-lg-4">
+        <div class="report-card h-100 d-flex flex-direction-column justify-content-between">
+          <div>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="report-date">{{ r.date|date:"l, d F Y" }}</span>
+              {% if r.is_edited %}
+                <span class="badge rounded-pill bg-warning-subtle text-warning small">Edited</span>
+              {% endif %}
+            </div>
+            <p class="report-preview mb-3">{{ r.report_text|truncatechars:200 }}</p>
+          </div>
+          <div class="d-flex justify-content-between align-items-center border-top pt-2 border-custom mt-auto">
+            <span class="text-muted small">{{ r.word_count }} words</span>
+            <a href="{% url 'reports:report_detail' r.pk %}" class="btn btn-link btn-sm text-decoration-none px-0 text-primary-custom">
+              Read Full Report <i class="bi bi-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+      <div class="col-12 mt-4 d-flex justify-content-center">
+        {% include 'partials/pagination.html' %}
+      </div>
+    {% endif %}
+
+  {% else %}
+    <div class="col-12">
+      <div class="card border-0 rounded-custom shadow-sm bg-surface p-5">
+        <div class="empty-state">
+          <i class="bi bi-file-earmark-x empty-state-icon"></i>
+          <h3 class="empty-state-title">No Reports Found</h3>
+          <p class="empty-state-text">No daily reports found matching your selected search keywords or date range filters.</p>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+
+{% block title %}Report Management{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">Home</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Report Management</li>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Report Management</h1>
+    <p class="page-subtitle">Track, filter, edit, and export employee daily report submissions</p>
+  </div>
+  <div class="d-flex gap-2">
+    <!-- Export dropdown -->
+    <div class="dropdown">
+      <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-download me-1"></i> Export Data
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-1" style="border: 1px solid var(--border)!important; background: var(--surface);">
+        <li><a class="dropdown-item" href="{% url 'reports:export_csv' %}?{{ request.GET.urlencode }}"><i class="bi bi-filetype-csv me-2 text-info"></i>Export as CSV</a></li>
+        <li><a class="dropdown-item" href="{% url 'reports:export_excel' %}?{{ request.GET.urlencode }}"><i class="bi bi-file-earmark-excel me-2 text-success"></i>Export as Excel</a></li>
+        <li><a class="dropdown-item" href="{% url 'reports:export_pdf' %}?{{ request.GET.urlencode }}"><i class="bi bi-file-pdf me-2 text-danger"></i>Export as PDF</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="javascript:window.print();"><i class="bi bi-printer me-2"></i>Print Friendly Page</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Filters Card -->
+<div class="card border-0 rounded-custom shadow-sm mb-4 bg-surface">
+  <div class="card-body py-3">
+    <form method="get" class="row g-3 align-items-center">
+      <!-- Search Keyword -->
+      <div class="col-md-3">
+        <label for="id_filter_keyword" class="form-label small text-muted">Keyword or Employee Name</label>
+        <input type="text" name="keyword" id="id_filter_keyword" value="{{ request.GET.keyword }}" class="form-control" placeholder="Search...">
+      </div>
+
+      <!-- Department -->
+      <div class="col-md-2">
+        <label for="id_filter_dept" class="form-label small text-muted">Department</label>
+        <select name="department" id="id_filter_dept" class="form-select">
+          <option value="">All Departments</option>
+          {% for dept in departments %}
+            <option value="{{ dept.pk }}" {% if request.GET.department == dept.pk|stringformat:"i" %}selected{% endif %}>{{ dept.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Employee -->
+      <div class="col-md-2">
+        <label for="id_filter_employee" class="form-label small text-muted">Employee</label>
+        <select name="employee" id="id_filter_employee" class="form-select">
+          <option value="">All Employees</option>
+          {% for emp in employees %}
+            <option value="{{ emp.pk }}" {% if request.GET.employee == emp.pk|stringformat:"i" %}selected{% endif %}>{{ emp.full_name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Date Range Selection -->
+      <div class="col-md-3">
+        <label for="id_filter_range" class="form-label small text-muted">Time Period</label>
+        <select name="date_range" id="id_filter_range" class="form-select">
+          <option value="">All Time</option>
+          <option value="today" {% if request.GET.date_range == 'today' %}selected{% endif %}>Today</option>
+          <option value="yesterday" {% if request.GET.date_range == 'yesterday' %}selected{% endif %}>Yesterday</option>
+          <option value="week" {% if request.GET.date_range == 'week' %}selected{% endif %}>Last 7 Days</option>
+          <option value="month" {% if request.GET.date_range == 'month' %}selected{% endif %}>Last 30 Days</option>
+          <option value="current_month" {% if request.GET.date_range == 'current_month' %}selected{% endif %}>Current Month</option>
+          <option value="prev_month" {% if request.GET.date_range == 'prev_month' %}selected{% endif %}>Previous Month</option>
+          <option value="custom" {% if request.GET.date_range == 'custom' %}selected{% endif %}>Custom Date Range</option>
+        </select>
+      </div>
+
+      <!-- Actions -->
+      <div class="col-md-2 mt-4">
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-outline-primary w-100">Apply</button>
+          {% if request.GET.keyword or request.GET.department or request.GET.employee or request.GET.date_range %}
+            <a href="{% url 'reports:admin_report_list' %}" class="btn btn-light" title="Reset Filters"><i class="bi bi-x-lg"></i></a>
+          {% endif %}
+        </div>
+      </div>
+    </form>
+
+    <!-- Custom Date Range Form Fields -->
+    <div id="custom-date-range" class="row g-3 mt-2 border-top border-custom pt-3" style="display: none;">
+      <div class="col-md-4">
+        <label for="id_filter_from" class="form-label small text-muted">From Date</label>
+        <input type="date" name="date_from" id="id_filter_from" value="{{ request.GET.date_from }}" class="form-control form-control-sm" />
+      </div>
+      <div class="col-md-4">
+        <label for="id_filter_to" class="form-label small text-muted">To Date</label>
+        <input type="date" name="date_to" id="id_filter_to" value="{{ request.GET.date_to }}" class="form-control form-control-sm" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Report Submissions Table -->
+<div class="card border-0 rounded-custom shadow-sm bg-surface">
+  <div class="card-body p-0">
+    {% if reports %}
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Employee ID</th>
+              <th>Employee Name</th>
+              <th>Department</th>
+              <th>Date</th>
+              <th>Words</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in reports %}
+              <tr>
+                <td><strong class="text-primary-custom">{{ r.employee.employee_id }}</strong></td>
+                <td>
+                  <div class="d-flex align-items-center gap-2">
+                    <div class="avatar-circle sm">
+                      {% if r.employee.avatar %}
+                        <img src="{{ r.employee.avatar.url }}" alt="" />
+                      {% else %}
+                        {{ r.employee.user.first_name|first|upper }}{{ r.employee.user.last_name|first|upper }}
+                      {% endif %}
+                    </div>
+                    <div>
+                      <strong class="d-block text-primary-custom">{{ r.employee.full_name }}</strong>
+                      <span class="text-muted small">{{ r.employee.designation.name }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td>{{ r.employee.department.name|default:"Unassigned" }}</td>
+                <td><span class="fw-500">{{ r.date|date:"d M Y" }}</span></td>
+                <td>{{ r.word_count }}</td>
+                <td>
+                  {% if r.is_edited %}
+                    <span class="badge rounded-pill bg-warning-subtle text-warning">Edited by Admin</span>
+                  {% else %}
+                    <span class="badge rounded-pill bg-success-subtle text-success">Submitted</span>
+                  {% endif %}
+                </td>
+                <td>
+                  <div class="d-flex gap-1">
+                    <a href="{% url 'reports:admin_report_detail' r.pk %}" class="btn btn-light btn-sm text-primary-custom" data-bs-toggle="tooltip" title="View"><i class="bi bi-eye"></i></a>
+                    <a href="{% url 'reports:admin_report_edit' r.pk %}" class="btn btn-light btn-sm text-warning" data-bs-toggle="tooltip" title="Edit"><i class="bi bi-pencil"></i></a>
+                    <a href="{% url 'reports:admin_report_delete' r.pk %}" class="btn btn-light btn-sm text-danger" data-bs-toggle="tooltip" title="Delete"><i class="bi bi-trash"></i></a>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% if is_paginated %}
+        <div class="card-footer d-flex justify-content-center py-3">
+          {% include 'partials/pagination.html' %}
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="empty-state">
+        <i class="bi bi-file-earmark-x empty-state-icon"></i>
+        <h3 class="empty-state-title">No Reports Found</h3>
+        <p class="empty-state-text">No daily work reports were found for the selected query filters.</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

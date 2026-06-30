@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit My Profile{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">Home</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Edit My Profile</li>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card border-0 rounded-custom shadow-sm bg-surface">
+      <div class="card-header py-3">
+        <h2 class="card-title"><i class="bi bi-person-circle text-accent"></i> Edit My Profile</h2>
+      </div>
+      <div class="card-body p-4">
+        <form method="post" enctype="multipart/form-data" data-loading>
+          {% csrf_token %}
+          
+          <div class="row g-3">
+            <!-- First Name -->
+            <div class="col-md-6">
+              <label for="id_self_first_name" class="form-label">First Name</label>
+              {{ form.first_name }}
+              {% if form.first_name.errors %}
+                <div class="invalid-feedback d-block">{{ form.first_name.errors|first }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Last Name -->
+            <div class="col-md-6">
+              <label for="id_self_last_name" class="form-label">Last Name</label>
+              {{ form.last_name }}
+              {% if form.last_name.errors %}
+                <div class="invalid-feedback d-block">{{ form.last_name.errors|first }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Phone -->
+            <div class="col-md-12">
+              <label for="id_self_phone" class="form-label">Phone Number</label>
+              {{ form.phone }}
+              {% if form.phone.errors %}
+                <div class="invalid-feedback d-block">{{ form.phone.errors|first }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Avatar -->
+            <div class="col-md-12">
+              <label for="id_self_avatar" class="form-label">Avatar / Profile Picture</label>
+              {% if form.instance.avatar %}
+                <div class="d-flex align-items-center gap-3 mb-2">
+                  <img src="{{ form.instance.avatar.url }}" alt="Current Avatar" class="rounded-circle border border-custom" style="width: 50px; height: 50px; object-fit: cover;" />
+                  <span class="text-muted small">Current Avatar</span>
+                </div>
+              {% endif %}
+              {{ form.avatar }}
+              {% if form.avatar.errors %}
+                <div class="invalid-feedback d-block">{{ form.avatar.errors|first }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="d-flex gap-2 justify-content-end border-top pt-3 mt-4 border-custom">
+            <a href="{% url 'dashboard:index' %}" class="btn btn-light px-4">Cancel</a>
+            <button type="submit" class="btn btn-primary px-4">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

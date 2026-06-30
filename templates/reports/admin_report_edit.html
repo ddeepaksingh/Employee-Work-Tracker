@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Report: {{ report.employee.full_name }}{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">Home</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'reports:admin_report_list' %}">Reports</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'reports:admin_report_detail' report.pk %}">Details</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Edit</li>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8 col-md-10">
+    <div class="card border-0 rounded-custom shadow-sm bg-surface">
+      <div class="card-header py-3">
+        <h2 class="card-title"><i class="bi bi-pencil-square text-accent"></i> Edit Employee Daily Report</h2>
+      </div>
+      <div class="card-body p-4">
+        <!-- Target Employee info header -->
+        <div class="d-flex align-items-center gap-3 mb-4 bg-light p-3 rounded border border-custom" style="background-color: var(--surface-2) !important;">
+          <div class="avatar-circle sm">
+            {% if report.employee.avatar %}
+              <img src="{{ report.employee.avatar.url }}" alt="" />
+            {% else %}
+              {{ report.employee.user.first_name|first|upper }}{{ report.employee.user.last_name|first|upper }}
+            {% endif %}
+          </div>
+          <div>
+            <strong class="d-block text-primary-custom">{{ report.employee.full_name }}</strong>
+            <span class="text-muted small">Username: {{ report.employee.user.username }}</span>
+          </div>
+        </div>
+
+        <form method="post" data-loading>
+          {% csrf_token %}
+          
+          <div class="mb-3">
+            <label for="id_admin_report_date" class="form-label fw-600">Report Date</label>
+            {{ form.date }}
+            {% if form.date.errors %}
+              <div class="invalid-feedback d-block">{{ form.date.errors|first }}</div>
+            {% endif %}
+            <div class="form-text">Note: Changing the date will modify the report's associated calendar date.</div>
+          </div>
+
+          <div class="mb-4">
+            <label for="id_admin_report_text" class="form-label fw-600">Report Content</label>
+            {{ form.report_text }}
+            {% if form.report_text.errors %}
+              <div class="invalid-feedback d-block">{{ form.report_text.errors|first }}</div>
+            {% endif %}
+          </div>
+
+          <div class="d-flex gap-2 justify-content-end border-top pt-3 border-custom">
+            <a href="{% url 'reports:admin_report_detail' report.pk %}" class="btn btn-light px-4">Cancel</a>
+            <button type="submit" class="btn btn-primary px-4">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,259 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active" aria-current="page">Admin Dashboard</li>
+{% endblock %}
+
+{% block content %}
+<!-- KPI Cards Row -->
+<div class="row g-4 mb-4">
+  <div class="col-6 col-sm-4 col-xl-2">
+    <div class="kpi-card h-100">
+      <div class="kpi-icon blue">
+        <i class="bi bi-people-fill"></i>
+      </div>
+      <div class="kpi-value">{{ total_employees }}</div>
+      <div class="kpi-label">Active Staff</div>
+    </div>
+  </div>
+  <div class="col-6 col-sm-4 col-xl-2">
+    <div class="kpi-card h-100">
+      <div class="kpi-icon green">
+        <i class="bi bi-calendar-check-fill"></i>
+      </div>
+      <div class="kpi-value">{{ submitted_today }}</div>
+      <div class="kpi-label">Submitted Today</div>
+    </div>
+  </div>
+  <div class="col-6 col-sm-4 col-xl-2">
+    <div class="kpi-card h-100">
+      <div class="kpi-icon red">
+        <i class="bi bi-calendar-x-fill"></i>
+      </div>
+      <div class="kpi-value">{{ pending_today }}</div>
+      <div class="kpi-label">Pending Today</div>
+    </div>
+  </div>
+  <div class="col-6 col-sm-4 col-xl-2">
+    <div class="kpi-card h-100">
+      <div class="kpi-icon purple">
+        <i class="bi bi-building"></i>
+      </div>
+      <div class="kpi-value">{{ total_departments }}</div>
+      <div class="kpi-label">Departments</div>
+    </div>
+  </div>
+  <div class="col-6 col-sm-4 col-xl-2">
+    <div class="kpi-card h-100">
+      <div class="kpi-icon amber">
+        <i class="bi bi-file-earmark-check-fill"></i>
+      </div>
+      <div class="kpi-value">{{ total_reports }}</div>
+      <div class="kpi-label">Total Reports</div>
+    </div>
+  </div>
+  <div class="col-6 col-sm-4 col-xl-2">
+    <div class="kpi-card h-100">
+      <div class="kpi-icon teal">
+        <i class="bi bi-bar-chart-fill"></i>
+      </div>
+      <div class="kpi-value">{{ this_month_reports }}</div>
+      <div class="kpi-label">This Month</div>
+    </div>
+  </div>
+</div>
+
+<!-- Charts Section -->
+<div class="row g-4 mb-4">
+  <div class="col-lg-6">
+    <div class="card border-0 rounded-custom shadow-sm bg-surface">
+      <div class="card-header">
+        <h2 class="card-title"><i class="bi bi-graph-up text-accent"></i> Daily Submissions (Last 14 Days)</h2>
+      </div>
+      <div class="card-body">
+        <canvas id="dailyChart" style="max-height: 260px;"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card border-0 rounded-custom shadow-sm bg-surface">
+      <div class="card-header">
+        <h2 class="card-title"><i class="bi bi-pie-chart-fill text-accent"></i> Department Submissions</h2>
+      </div>
+      <div class="card-body">
+        <canvas id="deptChart" style="max-height: 260px;"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Lower Sections: Reports, Pending Employees, Active Employees -->
+<div class="row g-4">
+  
+  <!-- Latest Reports -->
+  <div class="col-xl-8 col-lg-7">
+    <div class="card border-0 rounded-custom shadow-sm bg-surface">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h2 class="card-title m-0"><i class="bi bi-journal-text text-accent"></i> Latest Report Submissions</h2>
+        <a href="{% url 'reports:admin_report_list' %}" class="btn btn-primary btn-sm px-3">View All Reports</a>
+      </div>
+      <div class="card-body p-0">
+        {% if latest_reports %}
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>Employee</th>
+                  <th>Date</th>
+                  <th>Words</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for r in latest_reports %}
+                  <tr>
+                    <td>
+                      <div class="d-flex align-items-center gap-2">
+                        <div class="avatar-circle sm">
+                          {% if r.employee.avatar %}
+                            <img src="{{ r.employee.avatar.url }}" alt="" />
+                          {% else %}
+                            {{ r.employee.user.first_name|first|upper }}{{ r.employee.user.last_name|first|upper }}
+                          {% endif %}
+                        </div>
+                        <div>
+                          <strong class="d-block text-primary-custom">{{ r.employee.full_name }}</strong>
+                          <span class="text-muted small">{{ r.employee.designation.name }}</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td><span class="fw-500">{{ r.date|date:"d M Y" }}</span></td>
+                    <td>{{ r.word_count }}</td>
+                    <td>
+                      <div class="d-flex gap-1">
+                        <a href="{% url 'reports:admin_report_detail' r.pk %}" class="btn btn-light btn-sm text-primary-custom" data-bs-toggle="tooltip" title="View"><i class="bi bi-eye"></i></a>
+                        <a href="{% url 'reports:admin_report_edit' r.pk %}" class="btn btn-light btn-sm text-warning" data-bs-toggle="tooltip" title="Edit"><i class="bi bi-pencil"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <div class="empty-state">
+            <i class="bi bi-journals empty-state-icon"></i>
+            <h3 class="empty-state-title">No Reports Today</h3>
+            <p class="empty-state-text">No employees have submitted reports yet for today.</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Pending Employees (Haven't submitted today) -->
+  <div class="col-xl-4 col-lg-5">
+    <div class="card border-0 rounded-custom shadow-sm bg-surface h-100">
+      <div class="card-header">
+        <h2 class="card-title"><i class="bi bi-clock-history text-accent"></i> Pending Submission Today ({{ pending_today }})</h2>
+      </div>
+      <div class="card-body p-0" style="max-height: 400px; overflow-y: auto;">
+        {% if pending_employees %}
+          <div class="list-group list-group-flush">
+            {% for emp in pending_employees %}
+              <div class="list-group-item d-flex align-items-center gap-3 px-3 py-3 border-custom">
+                <div class="avatar-circle sm">
+                  {% if emp.avatar %}
+                    <img src="{{ emp.avatar.url }}" alt="" />
+                  {% else %}
+                    {{ emp.user.first_name|first|upper }}{{ emp.user.last_name|first|upper }}
+                  {% endif %}
+                </div>
+                <div class="flex-grow-1">
+                  <strong class="d-block text-primary-custom">{{ emp.full_name }}</strong>
+                  <span class="text-muted small">{{ emp.department.name }} &bull; {{ emp.designation.name }}</span>
+                </div>
+                <span class="badge rounded-pill bg-light text-warning fw-600">Pending</span>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="empty-state py-5">
+            <i class="bi bi-check2-circle empty-state-icon text-success"></i>
+            <h3 class="empty-state-title">100% Submission!</h3>
+            <p class="empty-state-text">All active employees have submitted their reports for today.</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    // Theme aware color palette
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const textColor = isDark ? '#94A3B8' : '#64748B';
+    const gridColor = isDark ? '#334155' : '#E2E8F0';
+
+    // Daily submissions Chart.js
+    const dailyCtx = document.getElementById('dailyChart').getContext('2d');
+    new Chart(dailyCtx, {
+      type: 'line',
+      data: {
+        labels: {{ daily_chart_labels|safe }},
+        datasets: [{
+          label: 'Report Submissions',
+          data: {{ daily_chart_data|safe }},
+          borderColor: '#1E3A5F',
+          backgroundColor: 'rgba(30, 58, 95, 0.1)',
+          borderWidth: 2.5,
+          tension: 0.35,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          x: { ticks: { color: textColor }, grid: { display: false } },
+          y: { ticks: { color: textColor, stepSize: 1 }, grid: { color: gridColor } }
+        }
+      }
+    });
+
+    // Department submissions Chart.js
+    const deptCtx = document.getElementById('deptChart').getContext('2d');
+    new Chart(deptCtx, {
+      type: 'bar',
+      data: {
+        labels: {{ dept_chart_labels|safe }},
+        datasets: [{
+          data: {{ dept_chart_data|safe }},
+          backgroundColor: ['#1E3A5F', '#E8A020', '#2ECC71', '#E74C3C', '#9B59B6', '#3498DB', '#1ABC9C'],
+          borderRadius: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          x: { ticks: { color: textColor }, grid: { display: false } },
+          y: { ticks: { color: textColor }, grid: { color: gridColor } }
+        }
+      }
+    });
+
+  });
+</script>
+{% endblock %}

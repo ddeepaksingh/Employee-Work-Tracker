@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}Company Settings{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">Home</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Company Settings</li>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-10 col-xl-8">
+    <div class="card border-0 rounded-custom shadow-sm bg-surface">
+      <div class="card-header py-3">
+        <h2 class="card-title"><i class="bi bi-gear-fill text-accent"></i> System &amp; Company Settings</h2>
+      </div>
+      <div class="card-body p-4">
+        
+        <form method="post" enctype="multipart/form-data" data-loading>
+          {% csrf_token %}
+          
+          <h5 class="fw-700 text-primary-custom mb-3 border-bottom pb-2 border-custom">1. Company Identity</h5>
+          
+          <div class="row g-3 mb-4">
+            <!-- Company Name -->
+            <div class="col-md-6">
+              <label for="id_company_name" class="form-label">Company Name</label>
+              {{ form.company_name }}
+              {% if form.company_name.errors %}
+                <div class="invalid-feedback d-block">{{ form.company_name.errors|first }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Company Logo -->
+            <div class="col-md-6">
+              <label for="id_company_logo" class="form-label">Company Logo</label>
+              {% if form.instance.company_logo %}
+                <div class="d-flex align-items-center gap-3 mb-2">
+                  <img src="{{ form.instance.company_logo.url }}" alt="Company Logo" class="border border-custom p-1 bg-white rounded" style="max-height: 40px; max-width: 150px; object-fit: contain;" />
+                  <span class="text-muted small">Current Logo</span>
+                </div>
+              {% endif %}
+              {{ form.company_logo }}
+              {% if form.company_logo.errors %}
+                <div class="invalid-feedback d-block">{{ form.company_logo.errors|first }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <h5 class="fw-700 text-primary-custom mb-3 border-bottom pb-2 border-custom">2. Localization &amp; Rules</h5>
+          
+          <div class="row g-3 mb-4">
+            <!-- Timezone -->
+            <div class="col-md-6">
+              <label for="id_timezone" class="form-label">System Timezone</label>
+              {{ form.timezone }}
+              {% if form.timezone.errors %}
+                <div class="invalid-feedback d-block">{{ form.timezone.errors|first }}</div>
+              {% endif %}
+              <div class="form-text">e.g. Asia/Kolkata, UTC, America/New_York</div>
+            </div>
+
+            <!-- Date Format -->
+            <div class="col-md-6">
+              <label for="id_date_format" class="form-label">Display Date Format</label>
+              {{ form.date_format }}
+              {% if form.date_format.errors %}
+                <div class="invalid-feedback d-block">{{ form.date_format.errors|first }}</div>
+              {% endif %}
+              <div class="form-text">Python strftime syntax, e.g. <code>%d %B %Y</code> or <code>%Y-%m-%d</code></div>
+            </div>
+
+            <!-- Submission Deadline -->
+            <div class="col-md-6">
+              <label for="id_deadline" class="form-label">Daily Submission Deadline</label>
+              {{ form.submission_deadline }}
+              {% if form.submission_deadline.errors %}
+                <div class="invalid-feedback d-block">{{ form.submission_deadline.errors|first }}</div>
+              {% endif %}
+              <div class="form-text">Daily report submission cutoff hour.</div>
+            </div>
+
+            <!-- Default Theme -->
+            <div class="col-md-6">
+              <label for="id_theme" class="form-label">Default Color Theme</label>
+              {{ form.theme }}
+              {% if form.theme.errors %}
+                <div class="invalid-feedback d-block">{{ form.theme.errors|first }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <h5 class="fw-700 text-primary-custom mb-3 border-bottom pb-2 border-custom">3. Footer Customization</h5>
+          
+          <div class="row g-3 mb-4">
+            <!-- Footer Text -->
+            <div class="col-md-12">
+              <label for="id_footer" class="form-label">Footer Copyright / Trademark Label</label>
+              {{ form.footer_text }}
+              {% if form.footer_text.errors %}
+                <div class="invalid-feedback d-block">{{ form.footer_text.errors|first }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="d-flex gap-2 justify-content-end border-top pt-3 border-custom">
+            <button type="submit" class="btn btn-primary px-4">
+              <i class="bi bi-save me-2"></i> Save Settings
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

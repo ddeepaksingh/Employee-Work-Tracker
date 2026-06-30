@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block title %}Designations{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">Home</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Designations</li>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Designations</h1>
+    <p class="page-subtitle">Manage designation titles and filter them by organizational departments</p>
+  </div>
+  <div>
+    <a href="{% url 'employees:designation_add' %}" class="btn btn-primary">
+      <i class="bi bi-plus-lg me-1"></i> Add Designation
+    </a>
+  </div>
+</div>
+
+<!-- Filters Card -->
+<div class="card border-0 rounded-custom shadow-sm mb-4 bg-surface">
+  <div class="card-body py-3">
+    <form method="get" class="row g-3 align-items-center">
+      <div class="col-md-4">
+        <div class="input-group">
+          <span class="input-group-text bg-transparent border-end-0 border-custom text-muted"><i class="bi bi-search"></i></span>
+          <input type="text" name="q" value="{{ search_query }}" class="form-control border-start-0" placeholder="Search designation title...">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <select name="department" class="form-select">
+          <option value="">All Departments</option>
+          {% for dept in departments %}
+            <option value="{{ dept.pk }}" {% if selected_dept == dept.pk|stringformat:"i" %}selected{% endif %}>{{ dept.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-outline-primary w-100">Filter</button>
+      </div>
+      {% if search_query or selected_dept %}
+        <div class="col-md-2">
+          <a href="{% url 'employees:designation_list' %}" class="btn btn-light w-100">Clear</a>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+</div>
+
+<!-- Designation List Table -->
+<div class="card border-0 rounded-custom shadow-sm bg-surface">
+  <div class="card-body p-0">
+    {% if designations %}
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Designation Title</th>
+              <th>Department</th>
+              <th>Status</th>
+              <th>Created Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for dg in designations %}
+              <tr>
+                <td><strong class="text-primary-custom">{{ dg.name }}</strong></td>
+                <td><span class="badge rounded-pill bg-light text-primary-custom fw-600 px-3">{{ dg.department.name }}</span></td>
+                <td>
+                  {% if dg.is_active %}
+                    <span class="status-pill badge-active text-success">Active</span>
+                  {% else %}
+                    <span class="status-pill badge-inactive text-danger">Inactive</span>
+                  {% endif %}
+                </td>
+                <td>{{ dg.created_at|date:"d M Y" }}</td>
+                <td>
+                  <div class="d-flex gap-1">
+                    <a href="{% url 'employees:designation_edit' dg.pk %}" class="btn btn-light btn-sm text-warning" data-bs-toggle="tooltip" title="Edit"><i class="bi bi-pencil"></i></a>
+                    <a href="{% url 'employees:designation_delete' dg.pk %}" class="btn btn-light btn-sm text-danger" data-bs-toggle="tooltip" title="Delete"><i class="bi bi-trash"></i></a>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% if is_paginated %}
+        <div class="card-footer d-flex justify-content-center py-3">
+          {% include 'partials/pagination.html' %}
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="empty-state">
+        <i class="bi bi-award-fill empty-state-icon"></i>
+        <h3 class="empty-state-title">No Designations Found</h3>
+        <p class="empty-state-text">No designations match your filters. Create one using the button above.</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

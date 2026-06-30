@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}Departments{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">Home</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Departments</li>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Departments</h1>
+    <p class="page-subtitle">Manage company departments and view employee headcounts</p>
+  </div>
+  <div>
+    <a href="{% url 'employees:department_add' %}" class="btn btn-primary">
+      <i class="bi bi-plus-lg me-1"></i> Add Department
+    </a>
+  </div>
+</div>
+
+<!-- Filters & Search Card -->
+<div class="card border-0 rounded-custom shadow-sm mb-4 bg-surface">
+  <div class="card-body py-3">
+    <form method="get" class="row g-3 align-items-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span class="input-group-text bg-transparent border-end-0 border-custom text-muted"><i class="bi bi-search"></i></span>
+          <input type="text" name="q" value="{{ search_query }}" class="form-control border-start-0" placeholder="Search departments...">
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-2">
+        <button type="submit" class="btn btn-outline-primary w-100">Search</button>
+      </div>
+      {% if search_query %}
+        <div class="col-md-6 col-lg-2">
+          <a href="{% url 'employees:department_list' %}" class="btn btn-light w-100">Clear</a>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+</div>
+
+<!-- Department List Table -->
+<div class="card border-0 rounded-custom shadow-sm bg-surface">
+  <div class="card-body p-0">
+    {% if departments %}
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Department Name</th>
+              <th>Description</th>
+              <th>Active Employees</th>
+              <th>Status</th>
+              <th>Created Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for d in departments %}
+              <tr>
+                <td><strong class="text-primary-custom">{{ d.name }}</strong></td>
+                <td><span class="text-muted text-truncate d-inline-block" style="max-width: 250px;">{{ d.description|default:"—" }}</span></td>
+                <td><span class="badge rounded-pill bg-light text-primary-custom fw-600 px-3">{{ d.employee_count }}</span></td>
+                <td>
+                  {% if d.is_active %}
+                    <span class="status-pill badge-active text-success">Active</span>
+                  {% else %}
+                    <span class="status-pill badge-inactive text-danger">Inactive</span>
+                  {% endif %}
+                </td>
+                <td>{{ d.created_at|date:"d M Y" }}</td>
+                <td>
+                  <div class="d-flex gap-1">
+                    <a href="{% url 'employees:department_edit' d.pk %}" class="btn btn-light btn-sm text-warning" data-bs-toggle="tooltip" title="Edit"><i class="bi bi-pencil"></i></a>
+                    <a href="{% url 'employees:department_delete' d.pk %}" class="btn btn-light btn-sm text-danger" data-bs-toggle="tooltip" title="Delete"><i class="bi bi-trash"></i></a>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% if is_paginated %}
+        <div class="card-footer d-flex justify-content-center py-3">
+          {% include 'partials/pagination.html' %}
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="empty-state">
+        <i class="bi bi-building-fill-x empty-state-icon"></i>
+        <h3 class="empty-state-title">No Departments Found</h3>
+        <p class="empty-state-text">No departments match your search criteria. Create one using the button above.</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

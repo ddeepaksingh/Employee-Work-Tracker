@@ -1,0 +1,32 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.venv/
+env/
+venv/
+
+# Django
+db.sqlite3
+staticfiles/
+media/
+logs/
+
+# UV
+.uv
+
+# Docker / Local Env
+.env
+Dockerfile
+docker-compose.yml
+.dockerignore
+README.md
+task.md
+walkthrough.md
+implementation_plan.md

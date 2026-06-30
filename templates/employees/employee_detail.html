@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% block title %}Employee Profile: {{ employee.full_name }}{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">Home</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'employees:employee_list' %}">Employees</a></li>
+  <li class="breadcrumb-item active" aria-current="page">{{ employee.full_name }}</li>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">{{ employee.full_name }}</h1>
+    <p class="page-subtitle">Employee Details &amp; Report History Profile</p>
+  </div>
+  <div class="d-flex gap-2">
+    <a href="{% url 'employees:reset_password' employee.pk %}" class="btn btn-outline-primary">
+      <i class="bi bi-key me-1"></i> Reset Password
+    </a>
+    <a href="{% url 'employees:employee_edit' employee.pk %}" class="btn btn-warning text-white">
+      <i class="bi bi-pencil-square me-1"></i> Edit Profile
+    </a>
+  </div>
+</div>
+
+<div class="row g-4">
+  <!-- Profile details card -->
+  <div class="col-lg-4">
+    <div class="card border-0 rounded-custom shadow-sm bg-surface mb-4">
+      <div class="card-body text-center p-4">
+        <div class="avatar-circle xl mx-auto mb-3">
+          {% if employee.avatar %}
+            <img src="{{ employee.avatar.url }}" alt="Avatar" />
+          {% else %}
+            {{ employee.user.first_name|first|upper }}{{ employee.user.last_name|first|upper }}
+          {% endif %}
+        </div>
+        <h3 class="fw-700 text-primary-custom mb-1">{{ employee.full_name }}</h3>
+        <p class="text-muted mb-3">{{ employee.designation.name }} &bull; {{ employee.department.name }}</p>
+        
+        {% if employee.is_active %}
+          <span class="badge rounded-pill bg-success-subtle text-success px-3 py-2 fw-600">Active Account</span>
+        {% else %}
+          <span class="badge rounded-pill bg-danger-subtle text-danger px-3 py-2 fw-600">Inactive Account</span>
+        {% endif %}
+      </div>
+      
+      <div class="list-group list-group-flush border-top border-custom bg-surface">
+        <div class="list-group-item px-4 py-3 border-custom bg-transparent">
+          <span class="d-block small text-muted">Employee ID</span>
+          <strong class="text-primary-custom">{{ employee.employee_id }}</strong>
+        </div>
+        <div class="list-group-item px-4 py-3 border-custom bg-transparent">
+          <span class="d-block small text-muted">Email Address</span>
+          <strong class="text-primary-custom">{{ employee.user.email }}</strong>
+        </div>
+        <div class="list-group-item px-4 py-3 border-custom bg-transparent">
+          <span class="d-block small text-muted">Phone Number</span>
+          <strong class="text-primary-custom">{{ employee.phone|default:"—" }}</strong>
+        </div>
+        <div class="list-group-item px-4 py-3 border-custom bg-transparent">
+          <span class="d-block small text-muted">Date of Joining</span>
+          <strong class="text-primary-custom">{{ employee.date_of_joining|date:"d F Y"|default:"—" }}</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="card border-0 rounded-custom shadow-sm bg-surface">
+      <div class="card-header">
+        <h2 class="card-title"><i class="bi bi-bar-chart-fill text-accent"></i> Submission Stats</h2>
+      </div>
+      <div class="card-body">
+        <div class="row text-center">
+          <div class="col-6">
+            <h4 class="fw-800 text-primary-custom m-0">{{ total_reports }}</h4>
+            <span class="text-muted small uppercase">Total Reports</span>
+          </div>
+          <div class="col-6 border-start border-custom">
+            <h4 class="fw-800 text-accent m-0">
+              {% if employee.date_of_joining %}
+                {{ total_reports }}
+              {% else %}
+                —
+              {% endif %}
+            </h4>
+            <span class="text-muted small uppercase">Days Active</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Report history card -->
+  <div class="col-lg-8">
+    <div class="card border-0 rounded-custom shadow-sm bg-surface h-100">
+      <div class="card-header">
+        <h2 class="card-title"><i class="bi bi-clock-history text-accent"></i> Recent Report Submissions</h2>
+      </div>
+      <div class="card-body p-0">
+        {% if recent_reports %}
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Words</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for r in recent_reports %}
+                  <tr>
+                    <td><strong class="text-primary-custom">{{ r.date|date:"d M Y (l)" }}</strong></td>
+                    <td>{{ r.word_count }}</td>
+                    <td>
+                      {% if r.is_edited %}
+                        <span class="badge rounded-pill bg-warning-subtle text-warning">Edited by Admin</span>
+                      {% else %}
+                        <span class="badge rounded-pill bg-success-subtle text-success">Submitted</span>
+                      {% endif %}
+                    </td>
+                    <td>
+                      <div class="d-flex gap-1">
+                        <a href="{% url 'reports:admin_report_detail' r.pk %}" class="btn btn-light btn-sm text-primary-custom" data-bs-toggle="tooltip" title="View Report"><i class="bi bi-eye"></i></a>
+                        <a href="{% url 'reports:admin_report_edit' r.pk %}" class="btn btn-light btn-sm text-warning" data-bs-toggle="tooltip" title="Edit Report"><i class="bi bi-pencil"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <div class="empty-state py-5">
+            <i class="bi bi-journal-x empty-state-icon"></i>
+            <h3 class="empty-state-title">No Reports Found</h3>
+            <p class="empty-state-text">This employee has not submitted any work reports yet.</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

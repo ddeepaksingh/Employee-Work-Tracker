@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}Activity Log Audit{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">Home</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Activity Log Audit</li>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Activity Log Audit</h1>
+    <p class="page-subtitle">Track and review security events, profile updates, and admin operations</p>
+  </div>
+</div>
+
+<!-- Filters Card -->
+<div class="card border-0 rounded-custom shadow-sm mb-4 bg-surface">
+  <div class="card-body py-3">
+    <form method="get" class="row g-3 align-items-center">
+      <!-- Search Username -->
+      <div class="col-md-4">
+        <div class="input-group">
+          <span class="input-group-text bg-transparent border-end-0 border-custom text-muted"><i class="bi bi-person"></i></span>
+          <input type="text" name="user" value="{{ user_query }}" class="form-control border-start-0" placeholder="Search by username...">
+        </div>
+      </div>
+      
+      <!-- Filter Action -->
+      <div class="col-md-4">
+        <select name="action" class="form-select">
+          <option value="">All Actions</option>
+          {% for code, label in action_choices %}
+            <option value="{{ code }}" {% if selected_action == code %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-outline-primary w-100">Filter Log</button>
+      </div>
+      
+      {% if user_query or selected_action %}
+        <div class="col-md-2">
+          <a href="{% url 'core:activity_log' %}" class="btn btn-light w-100">Reset</a>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+</div>
+
+<!-- Activity Log Table -->
+<div class="card border-0 rounded-custom shadow-sm bg-surface">
+  <div class="card-body p-0">
+    {% if logs %}
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>User</th>
+              <th>Action Event</th>
+              <th>Description / Details</th>
+              <th>IP Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for log in logs %}
+              <tr>
+                <td><span class="text-muted small">{{ log.timestamp|date:"d M Y \a\t H:i:A" }}</span></td>
+                <td>
+                  {% if log.user %}
+                    <strong class="text-primary-custom">{{ log.user.username }}</strong>
+                    <span class="d-block text-muted small" style="font-size:11px;">
+                      {{ log.user.get_full_name|default:"Admin/Staff" }}
+                    </span>
+                  {% else %}
+                    <span class="text-muted italic">System / Anonymous</span>
+                  {% endif %}
+                </td>
+                <td>
+                  <span class="badge px-3 py-1.5 rounded-pill uppercase fw-600
+                    {% if log.action == 'LOGIN' %}bg-success-subtle text-success
+                    {% elif log.action == 'LOGOUT' %}bg-secondary-subtle text-secondary
+                    {% elif log.action == 'PASSWORD_CHANGED' or log.action == 'PASSWORD_RESET' %}bg-info-subtle text-info
+                    {% elif log.action == 'REPORT_CREATED' or log.action == 'REPORT_UPDATED' %}bg-primary-subtle text-primary
+                    {% elif log.action == 'REPORT_DELETED' or log.action == 'EMPLOYEE_DELETED' %}bg-danger-subtle text-danger
+                    {% else %}bg-warning-subtle text-warning{% endif %}">
+                    {{ log.get_action_display }}
+                  </span>
+                </td>
+                <td><span class="small text-muted">{{ log.description }}</span></td>
+                <td><code>{{ log.ip_address|default:"—" }}</code></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      
+      {% if is_paginated %}
+        <div class="card-footer d-flex justify-content-center py-3">
+          {% include 'partials/pagination.html' %}
+        </div>
+      {% endif %}
+
+    {% else %}
+      <div class="empty-state py-5">
+        <i class="bi bi-activity empty-state-icon"></i>
+        <h3 class="empty-state-title">No Logs Found</h3>
+        <p class="empty-state-text">No security or activity logs matched your current filters.</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

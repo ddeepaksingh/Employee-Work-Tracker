@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Report Detail: {{ report.date }}{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">Home</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'reports:report_history' %}">Report History</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Report details</li>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card border-0 rounded-custom shadow-sm bg-surface">
+      <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h2 class="card-title m-0"><i class="bi bi-file-earmark-text text-accent"></i> Work Report Details</h2>
+        <span class="badge rounded-pill bg-light text-muted fw-600 px-3 py-2">{{ report.word_count }} words</span>
+      </div>
+      <div class="card-body p-4">
+        
+        <div class="row g-3 mb-4 bg-light p-3 rounded border border-custom" style="background-color: var(--surface-2) !important;">
+          <div class="col-sm-6">
+            <span class="d-block small text-muted uppercase">Submission Date</span>
+            <strong class="text-primary-custom fs-5">{{ report.date|date:"l, d F Y" }}</strong>
+          </div>
+          <div class="col-sm-6 border-start border-custom ps-sm-4">
+            <span class="d-block small text-muted uppercase">Submitted At</span>
+            <span class="text-primary-custom">{{ report.created_at|date:"d M Y \a\t H:i A" }}</span>
+            {% if report.is_edited %}
+              <span class="badge rounded-pill bg-warning-subtle text-warning d-block mt-1 w-fit-content">Edited by Admin</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label uppercase small text-muted d-block mb-2">Report Content</label>
+          <div class="p-3 rounded border border-custom" style="white-space: pre-wrap; line-height: 1.8; font-size: 14.5px; background: var(--surface); color: var(--text);">{{ report.report_text }}</div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center border-top pt-3 border-custom">
+          <span class="text-muted small">Last updated: {{ report.updated_at|date:"d M Y \a\t H:i A" }}</span>
+          <a href="{% url 'reports:report_history' %}" class="btn btn-primary px-4">Back to History</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

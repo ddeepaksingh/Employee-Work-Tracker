@@ -1,0 +1,17 @@
+[project]
+name = "attendence"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.12"
+dependencies = [
+    "crispy-bootstrap5>=2026.3",
+    "django>=6.0.6",
+    "django-crispy-forms>=2.6",
+    "gunicorn>=26.0.0",
+    "openpyxl>=3.1.5",
+    "pillow>=12.2.0",
+    "psycopg2-binary>=2.9.12",
+    "python-decouple>=3.8",
+    "reportlab>=5.0.0",
+    "whitenoise>=6.12.0",
+]

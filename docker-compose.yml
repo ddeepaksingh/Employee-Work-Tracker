@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: report_system_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: ${DB_NAME:-employee_reports_db}
+      POSTGRES_USER: ${DB_USER:-db_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-strong_db_password}
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: always
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: report_system_web
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --noinput &&
+             gunicorn --bind 0.0.0.0:8000 --workers 3 config.wsgi:application"
+    volumes:
+      - static_volume:/app/staticfiles/
+      - media_volume:/app/media/
+      - logs_volume:/app/logs/
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=${SECRET_KEY:-django-insecure-prod-key-should-be-in-env}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost,127.0.0.1,web}
+      - TIME_ZONE=${TIME_ZONE:-Asia/Kolkata}
+      - DB_NAME=${DB_NAME:-employee_reports_db}
+      - DB_USER=${DB_USER:-db_user}
+      - DB_PASSWORD=${DB_PASSWORD:-strong_db_password}
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DJANGO_SETTINGS_MODULE=config.settings.production
+      - SECURE_SSL_REDIRECT=False # Set to True if deploying behind Nginx with SSL
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
+  logs_volume:

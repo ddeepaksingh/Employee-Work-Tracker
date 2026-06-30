@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block title %}Employees{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">Home</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Employees</li>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Employees</h1>
+    <p class="page-subtitle">View and manage all registered company staff profiles</p>
+  </div>
+  <div>
+    <a href="{% url 'employees:employee_add' %}" class="btn btn-primary">
+      <i class="bi bi-person-plus me-1"></i> Add Employee
+    </a>
+  </div>
+</div>
+
+<!-- Filters Card -->
+<div class="card border-0 rounded-custom shadow-sm mb-4 bg-surface">
+  <div class="card-body py-3">
+    <form method="get" class="row g-3 align-items-center">
+      <div class="col-md-4">
+        <div class="input-group">
+          <span class="input-group-text bg-transparent border-end-0 border-custom text-muted"><i class="bi bi-search"></i></span>
+          <input type="text" name="q" value="{{ search_query }}" class="form-control border-start-0" placeholder="Search by name or ID...">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <select name="department" class="form-select">
+          <option value="">All Departments</option>
+          {% for dept in departments %}
+            <option value="{{ dept.pk }}" {% if selected_dept == dept.pk|stringformat:"i" %}selected{% endif %}>{{ dept.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-3">
+        <select name="status" class="form-select">
+          <option value="">All Statuses</option>
+          <option value="active" {% if selected_status == 'active' %}selected{% endif %}>Active</option>
+          <option value="inactive" {% if selected_status == 'inactive' %}selected{% endif %}>Inactive</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-outline-primary w-100">Filter</button>
+      </div>
+      {% if search_query or selected_dept or selected_status %}
+        <div class="col-md-2">
+          <a href="{% url 'employees:employee_list' %}" class="btn btn-light w-100">Clear</a>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+</div>
+
+<!-- Employee List Table -->
+<div class="card border-0 rounded-custom shadow-sm bg-surface">
+  <div class="card-body p-0">
+    {% if employees %}
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Employee ID</th>
+              <th>Full Name</th>
+              <th>Department</th>
+              <th>Designation</th>
+              <th>Phone</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for emp in employees %}
+              <tr>
+                <td><strong class="text-primary-custom">{{ emp.employee_id }}</strong></td>
+                <td>
+                  <div class="d-flex align-items-center gap-2">
+                    <div class="avatar-circle sm">
+                      {% if emp.avatar %}
+                        <img src="{{ emp.avatar.url }}" alt="" />
+                      {% else %}
+                        {{ emp.user.first_name|first|upper }}{{ emp.user.last_name|first|upper }}
+                      {% endif %}
+                    </div>
+                    <div>
+                      <a href="{% url 'employees:employee_detail' emp.pk %}" class="text-decoration-none fw-600 text-primary-custom">{{ emp.full_name }}</a>
+                      <span class="d-block text-muted small">{{ emp.user.email }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td>{{ emp.department.name|default:"Unassigned" }}</td>
+                <td>{{ emp.designation.name|default:"Unassigned" }}</td>
+                <td>{{ emp.phone|default:"—" }}</td>
+                <td>
+                  {% if emp.is_active %}
+                    <span class="status-pill badge-active text-success">Active</span>
+                  {% else %}
+                    <span class="status-pill badge-inactive text-danger">Inactive</span>
+                  {% endif %}
+                </td>
+                <td>
+                  <div class="dropdown">
+                    <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Actions
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-1" style="border: 1px solid var(--border)!important; background: var(--surface);">
+                      <li><a class="dropdown-item" href="{% url 'employees:employee_detail' emp.pk %}"><i class="bi bi-eye me-2"></i>View Profile</a></li>
+                      <li><a class="dropdown-item" href="{% url 'employees:employee_edit' emp.pk %}"><i class="bi bi-pencil me-2 text-warning"></i>Edit Employee</a></li>
+                      <li><a class="dropdown-item" href="{% url 'employees:reset_password' emp.pk %}"><i class="bi bi-key me-2 text-info"></i>Reset Password</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item text-danger" href="{% url 'employees:employee_delete' emp.pk %}"><i class="bi bi-trash me-2"></i>Delete Profile</a></li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% if is_paginated %}
+        <div class="card-footer d-flex justify-content-center py-3">
+          {% include 'partials/pagination.html' %}
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="empty-state">
+        <i class="bi bi-people-fill empty-state-icon"></i>
+        <h3 class="empty-state-title">No Employees Found</h3>
+        <p class="empty-state-text">No employee profiles match your search criteria. Create one using the button above.</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

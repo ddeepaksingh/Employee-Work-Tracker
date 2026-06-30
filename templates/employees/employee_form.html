@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if object %}Edit{% else %}Add{% endif %} Employee{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">Home</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'employees:employee_list' %}">Employees</a></li>
+  <li class="breadcrumb-item active" aria-current="page">{% if object %}Edit{% else %}Add{% endif %} Employee</li>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-10">
+    <div class="card border-0 rounded-custom shadow-sm bg-surface">
+      <div class="card-header py-3">
+        <h2 class="card-title">
+          <i class="bi bi-person-fill text-accent"></i> 
+          {% if object %}Edit Employee Profile: {{ object.full_name }}{% else %}Add New Employee{% endif %}
+        </h2>
+      </div>
+      <div class="card-body p-4">
+        <form method="post" enctype="multipart/form-data" data-loading>
+          {% csrf_token %}
+          
+          <h5 class="fw-700 text-primary-custom mb-3 border-bottom pb-2 border-custom">1. Authentication Details</h5>
+          
+          <div class="row g-3 mb-4">
+            {% if not object %}
+              <!-- Username -->
+              <div class="col-md-6">
+                <label for="id_emp_username" class="form-label">Username <span class="text-danger">*</span></label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                  <div class="invalid-feedback d-block">{{ form.username.errors|first }}</div>
+                {% endif %}
+              </div>
+              
+              <!-- Password -->
+              <div class="col-md-6">
+                <label for="id_emp_password" class="form-label">Initial Password <span class="text-danger">*</span></label>
+                {{ form.password }}
+                {% if form.password.errors %}
+                  <div class="invalid-feedback d-block">{{ form.password.errors|first }}</div>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            <!-- First Name -->
+            <div class="col-md-4">
+              <label for="id_first_name" class="form-label">First Name <span class="text-danger">*</span></label>
+              {{ form.first_name }}
+              {% if form.first_name.errors %}
+                <div class="invalid-feedback d-block">{{ form.first_name.errors|first }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Last Name -->
+            <div class="col-md-4">
+              <label for="id_last_name" class="form-label">Last Name <span class="text-danger">*</span></label>
+              {{ form.last_name }}
+              {% if form.last_name.errors %}
+                <div class="invalid-feedback d-block">{{ form.last_name.errors|first }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Email -->
+            <div class="col-md-4">
+              <label for="id_email" class="form-label">Email Address <span class="text-danger">*</span></label>
+              {{ form.email }}
+              {% if form.email.errors %}
+                <div class="invalid-feedback d-block">{{ form.email.errors|first }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <h5 class="fw-700 text-primary-custom mb-3 border-bottom pb-2 border-custom">2. Company Profile Details</h5>
+          
+          <div class="row g-3 mb-4">
+            <!-- Employee ID -->
+            <div class="col-md-4">
+              <label for="id_emp_id" class="form-label">Employee ID</label>
+              {{ form.employee_id }}
+              {% if form.employee_id.errors %}
+                <div class="invalid-feedback d-block">{{ form.employee_id.errors|first }}</div>
+              {% endif %}
+              <div class="form-text">Leave blank to auto-generate (e.g. EMP0001)</div>
+            </div>
+
+            <!-- Department -->
+            <div class="col-md-4">
+              <label for="id_emp_dept" class="form-label">Department</label>
+              {{ form.department }}
+              {% if form.department.errors %}
+                <div class="invalid-feedback d-block">{{ form.department.errors|first }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Designation -->
+            <div class="col-md-4">
+              <label for="id_emp_desig" class="form-label">Designation</label>
+              <!-- We render designations directly. Standard widget needs mapping or we filter dynamically. -->
+              <select name="designation" id="id_emp_desig" class="form-select">
+                <option value="">---------</option>
+                {% for des in form.fields.designation.queryset %}
+                  <option value="{{ des.pk }}" data-dept="{{ des.department_id }}" {% if form.initial.designation == des.pk or form.instance.designation_id == des.pk %}selected{% endif %}>{{ des.name }}</option>
+                {% endfor %}
+              </select>
+              {% if form.designation.errors %}
+                <div class="invalid-feedback d-block">{{ form.designation.errors|first }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Phone -->
+            <div class="col-md-4">
+              <label for="id_emp_phone" class="form-label">Phone Number</label>
+              {{ form.phone }}
+              {% if form.phone.errors %}
+                <div class="invalid-feedback d-block">{{ form.phone.errors|first }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Date of Joining -->
+            <div class="col-md-4">
+              <label for="id_emp_doj" class="form-label">Date of Joining</label>
+              {{ form.date_of_joining }}
+              {% if form.date_of_joining.errors %}
+                <div class="invalid-feedback d-block">{{ form.date_of_joining.errors|first }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Avatar -->
+            <div class="col-md-4">
+              <label for="id_emp_avatar" class="form-label">Profile Image (Avatar)</label>
+              {{ form.avatar }}
+              {% if form.avatar.errors %}
+                <div class="invalid-feedback d-block">{{ form.avatar.errors|first }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Active Status -->
+            <div class="col-12 mt-4">
+              <div class="form-check">
+                {{ form.is_active }}
+                <label class="form-check-label fw-600" for="id_emp_active">
+                  Active Account status (inactive users cannot log into the system)
+                </label>
+                {% if form.is_active.errors %}
+                  <div class="invalid-feedback d-block">{{ form.is_active.errors|first }}</div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex gap-2 justify-content-end border-top pt-3 border-custom">
+            <a href="{% url 'employees:employee_list' %}" class="btn btn-light px-4">Cancel</a>
+            <button type="submit" class="btn btn-primary px-4">
+              {% if object %}Update{% else %}Create{% endif %} Employee Profile
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

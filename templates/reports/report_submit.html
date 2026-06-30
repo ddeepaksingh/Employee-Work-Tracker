@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Submit Work Report{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">Home</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Submit Work Report</li>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8 col-md-10">
+    <div class="card border-0 rounded-custom shadow-sm bg-surface">
+      <div class="card-header py-3">
+        <h2 class="card-title"><i class="bi bi-pencil-square text-accent"></i> Submit Daily Work Report</h2>
+      </div>
+      <div class="card-body p-4">
+        <div class="alert alert-info py-2 px-3 mb-4 d-flex align-items-center gap-2" role="alert" style="border-radius: var(--radius-sm);">
+          <i class="bi bi-info-circle-fill"></i>
+          <div>
+            <strong>Info:</strong> You are submitting the report for today: <strong>{% now "l, d F Y" %}</strong>
+          </div>
+        </div>
+
+        <form method="post" data-loading>
+          {% csrf_token %}
+          
+          <div class="mb-3">
+            <label for="id_report_text" class="form-label fw-600">Daily Work Activity Summary</label>
+            {{ form.report_text }}
+            {% if form.report_text.errors %}
+              <div class="invalid-feedback d-block">{{ form.report_text.errors|first }}</div>
+            {% endif %}
+            
+            <div class="d-flex justify-content-between align-items-center mt-2">
+              <span class="text-muted small">Minimum required: 50 characters</span>
+              <div id="char-counter" class="char-counter">0 / 5000 characters (min: 50)</div>
+            </div>
+          </div>
+
+          <div class="d-flex gap-2 justify-content-end border-top pt-3 border-custom">
+            <a href="{% url 'dashboard:index' %}" class="btn btn-light px-4">Cancel</a>
+            <button type="submit" class="btn btn-primary px-4">
+              <i class="bi bi-send-fill me-2"></i> Submit Report
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
