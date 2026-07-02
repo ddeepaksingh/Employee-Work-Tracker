@@ -114,3 +114,333 @@ INFO 2026-06-29 16:25:43,057 log 10644 5660 "GET /notifications/ HTTP/1.1" 200 9
 INFO 2026-06-29 16:25:50,939 log 10644 5660 "GET /reports/admin/ HTTP/1.1" 200 14189
 INFO 2026-06-29 16:25:51,635 log 10644 5660 "GET /dashboard/ HTTP/1.1" 200 15270
 INFO 2026-06-29 16:25:56,608 log 10644 5660 "GET /core/activity-log/ HTTP/1.1" 200 15938
+INFO 2026-06-29 17:08:55,467 autoreload 10516 808 Watching for file changes with StatReloader
+INFO 2026-06-29 17:08:57,155 log 10516 8664 "GET / HTTP/1.1" 302 0
+INFO 2026-06-29 17:08:57,155 log 10516 8664 "GET /dashboard/ HTTP/1.1" 302 0
+INFO 2026-06-29 17:08:57,167 log 10516 8664 "GET /accounts/login/?next=/dashboard/ HTTP/1.1" 200 2729
+INFO 2026-06-29 17:08:57,262 log 10516 8664 "GET /static/css/style.css HTTP/1.1" 200 23871
+INFO 2026-06-29 17:08:57,265 log 10516 17996 "GET /static/js/app.js HTTP/1.1" 200 7774
+INFO 2026-06-29 17:09:03,501 log 10516 12512 "GET /accounts/login/?next=/dashboard/ HTTP/1.1" 200 2729
+INFO 2026-06-29 17:09:03,528 log 10516 3352 "GET /static/js/app.js HTTP/1.1" 304 0
+INFO 2026-06-29 17:09:03,528 log 10516 12512 "GET /static/css/style.css HTTP/1.1" 304 0
+WARNING 2026-06-29 17:09:03,811 log 10516 12512 Not Found: /favicon.ico
+WARNING 2026-06-29 17:09:03,811 log 10516 12512 "GET /favicon.ico HTTP/1.1" 404 3434
+INFO 2026-06-29 17:09:06,375 views 10516 12512 User 'deepak_singh' logged in from 127.0.0.1
+INFO 2026-06-29 17:09:06,439 log 10516 12512 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-06-29 17:09:06,533 log 10516 12512 "GET /dashboard/ HTTP/1.1" 200 12440
+INFO 2026-06-29 17:09:08,461 log 10516 12512 "GET /reports/submit/ HTTP/1.1" 302 0
+INFO 2026-06-29 17:09:08,474 log 10516 12512 "GET /reports/history/ HTTP/1.1" 200 11227
+INFO 2026-06-29 17:09:11,086 log 10516 12512 "GET /reports/submit/ HTTP/1.1" 302 0
+INFO 2026-06-29 17:09:11,100 log 10516 12512 "GET /reports/history/ HTTP/1.1" 200 11227
+INFO 2026-06-29 17:09:12,532 log 10516 12512 "GET /reports/submit/ HTTP/1.1" 302 0
+INFO 2026-06-29 17:09:12,543 log 10516 12512 "GET /reports/history/ HTTP/1.1" 200 11227
+INFO 2026-06-29 17:09:13,067 log 10516 12512 "GET /reports/submit/ HTTP/1.1" 302 0
+INFO 2026-06-29 17:09:13,078 log 10516 12512 "GET /reports/history/ HTTP/1.1" 200 11227
+INFO 2026-06-29 17:09:13,609 log 10516 12512 "GET /reports/submit/ HTTP/1.1" 302 0
+INFO 2026-06-29 17:09:13,624 log 10516 12512 "GET /reports/history/ HTTP/1.1" 200 11227
+INFO 2026-06-29 17:09:14,723 log 10516 12512 "GET /reports/submit/ HTTP/1.1" 302 0
+INFO 2026-06-29 17:09:14,735 log 10516 12512 "GET /reports/history/ HTTP/1.1" 200 11227
+INFO 2026-06-29 17:09:15,379 log 10516 12512 "GET /reports/submit/ HTTP/1.1" 302 0
+INFO 2026-06-29 17:09:15,390 log 10516 12512 "GET /reports/history/ HTTP/1.1" 200 11227
+INFO 2026-06-29 17:09:27,463 log 10516 13260 "GET /accounts/login/?next=/dashboard/ HTTP/1.1" 200 2729
+INFO 2026-06-29 17:09:27,482 log 10516 13260 "GET /static/css/style.css HTTP/1.1" 200 23871
+INFO 2026-06-29 17:09:27,483 log 10516 19280 "GET /static/js/app.js HTTP/1.1" 200 7774
+INFO 2026-06-29 17:09:31,149 log 10516 12512 "GET /reports/submit/ HTTP/1.1" 302 0
+INFO 2026-06-29 17:09:31,161 log 10516 12512 "GET /reports/history/ HTTP/1.1" 200 11227
+INFO 2026-06-29 17:09:31,921 log 10516 12512 "GET /reports/history/ HTTP/1.1" 200 10699
+INFO 2026-06-29 17:09:33,429 log 10516 12512 "GET /reports/1/ HTTP/1.1" 200 10321
+INFO 2026-06-29 17:09:52,412 log 10516 19280 "POST /accounts/login/ HTTP/1.1" 200 3020
+INFO 2026-06-29 17:09:59,825 log 10516 19280 "POST /accounts/login/ HTTP/1.1" 200 3020
+INFO 2026-06-29 17:10:11,836 log 10516 19280 "POST /accounts/login/ HTTP/1.1" 200 3020
+INFO 2026-06-29 17:10:21,766 log 10516 19280 "POST /accounts/login/ HTTP/1.1" 200 3020
+INFO 2026-06-29 17:12:00,139 autoreload 2440 10988 Watching for file changes with StatReloader
+INFO 2026-06-29 17:12:09,198 views 2440 10496 User 'dird' logged in from 127.0.0.1
+INFO 2026-06-29 17:12:09,275 log 2440 10496 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-06-29 17:12:09,338 log 2440 10496 "GET /dashboard/ HTTP/1.1" 200 15746
+INFO 2026-06-29 17:12:17,926 log 2440 10496 "GET /employees/add/ HTTP/1.1" 200 13575
+INFO 2026-06-29 17:12:20,489 log 2440 10496 "GET /employees/add/ HTTP/1.1" 200 13575
+INFO 2026-06-29 17:12:25,483 log 2440 10496 "GET /employees/add/ HTTP/1.1" 200 13575
+INFO 2026-06-29 17:12:27,463 log 2440 10496 "GET /reports/admin/ HTTP/1.1" 200 14173
+INFO 2026-06-29 17:12:28,156 log 2440 10496 "GET /dashboard/ HTTP/1.1" 200 15254
+INFO 2026-06-29 17:12:29,428 log 2440 10496 "GET /reports/admin/ HTTP/1.1" 200 14173
+INFO 2026-06-29 17:12:32,740 log 2440 10496 "GET /reports/admin/1/ HTTP/1.1" 200 12255
+INFO 2026-06-29 17:12:34,835 log 2440 10496 "GET /reports/admin/ HTTP/1.1" 200 14173
+INFO 2026-06-29 17:12:52,727 log 2440 10496 "GET /reports/admin/?date_range=today HTTP/1.1" 200 14353
+INFO 2026-06-29 17:12:54,933 log 2440 10496 "GET /reports/admin/?date_range=today HTTP/1.1" 200 14353
+INFO 2026-06-29 17:13:00,285 log 2440 10496 "GET /reports/admin/?date_range=today HTTP/1.1" 200 14353
+INFO 2026-06-29 17:13:01,542 log 2440 10496 "GET /dashboard/ HTTP/1.1" 200 15254
+INFO 2026-06-29 17:13:09,184 log 2440 10496 "GET /reports/admin/1/ HTTP/1.1" 200 12255
+INFO 2026-06-29 17:14:04,509 log 2440 10496 "GET /employees/ HTTP/1.1" 200 12084
+INFO 2026-06-29 17:14:05,027 log 2440 10496 "GET /employees/add/ HTTP/1.1" 200 13575
+INFO 2026-06-29 17:14:07,625 log 2440 10496 "GET /employees/designations/ HTTP/1.1" 200 10655
+INFO 2026-06-29 17:14:10,635 log 2440 10496 "GET /core/activity-log/ HTTP/1.1" 200 17595
+INFO 2026-06-29 17:14:19,786 log 2440 10496 "GET /core/settings/ HTTP/1.1" 200 11994
+WARNING 2026-06-29 17:16:21,061 log 2440 10496 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2026-06-29 17:16:21,061 log 2440 10496 "POST /accounts/login/ HTTP/1.1" 403 2503
+WARNING 2026-06-29 17:19:06,338 log 2440 10496 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2026-06-29 17:19:06,339 log 2440 10496 "POST /accounts/login/ HTTP/1.1" 403 2503
+WARNING 2026-06-29 17:19:10,059 log 2440 10496 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2026-06-29 17:19:10,059 log 2440 10496 "POST /accounts/login/ HTTP/1.1" 403 2503
+INFO 2026-06-30 11:04:36,735 autoreload 17656 11988 Watching for file changes with StatReloader
+INFO 2026-06-30 11:04:40,279 log 17656 18820 "GET / HTTP/1.1" 302 0
+INFO 2026-06-30 11:04:40,281 log 17656 18820 "GET /dashboard/ HTTP/1.1" 302 0
+INFO 2026-06-30 11:04:40,378 log 17656 18820 "GET /accounts/login/?next=/dashboard/ HTTP/1.1" 200 2729
+INFO 2026-06-30 11:04:40,425 log 17656 18640 "GET /static/js/app.js HTTP/1.1" 200 7774
+INFO 2026-06-30 11:04:40,432 log 17656 18820 "GET /static/css/style.css HTTP/1.1" 200 23871
+WARNING 2026-06-30 11:04:41,947 log 17656 18820 Not Found: /favicon.ico
+WARNING 2026-06-30 11:04:41,947 log 17656 18820 "GET /favicon.ico HTTP/1.1" 404 3434
+INFO 2026-06-30 11:04:52,735 log 17656 18820 "POST /accounts/login/ HTTP/1.1" 200 3020
+INFO 2026-06-30 11:05:01,849 log 17656 18820 "POST /accounts/login/ HTTP/1.1" 200 3019
+INFO 2026-06-30 11:05:07,306 log 17656 18820 "POST /accounts/login/ HTTP/1.1" 200 3019
+INFO 2026-06-30 11:05:17,655 log 17656 13508 "GET / HTTP/1.1" 302 0
+INFO 2026-06-30 11:05:17,658 log 17656 13508 "GET /dashboard/ HTTP/1.1" 302 0
+INFO 2026-06-30 11:05:17,670 log 17656 13508 "GET /accounts/login/?next=/dashboard/ HTTP/1.1" 200 2729
+WARNING 2026-06-30 11:05:17,842 log 17656 13508 Not Found: /favicon.ico
+WARNING 2026-06-30 11:05:17,842 log 17656 13508 "GET /favicon.ico HTTP/1.1" 404 3434
+INFO 2026-06-30 11:05:26,882 log 17656 13508 "POST /accounts/login/ HTTP/1.1" 200 3020
+INFO 2026-06-30 11:05:27,927 log 17656 13508 "GET /accounts/password-reset/ HTTP/1.1" 200 2180
+INFO 2026-06-30 11:05:51,529 log 17656 13508 "GET /accounts/login/ HTTP/1.1" 200 2729
+INFO 2026-06-30 11:06:02,638 log 17656 15212 "GET / HTTP/1.1" 302 0
+INFO 2026-06-30 11:06:02,643 log 17656 15212 "GET /dashboard/ HTTP/1.1" 302 0
+INFO 2026-06-30 11:06:02,653 log 17656 15212 "GET /accounts/login/?next=/dashboard/ HTTP/1.1" 200 2729
+INFO 2026-06-30 11:06:02,681 log 17656 15212 "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2026-06-30 11:06:02,682 log 17656 6540 "GET /static/js/app.js HTTP/1.1" 304 0
+WARNING 2026-06-30 11:06:02,767 log 17656 6540 Not Found: /favicon.ico
+WARNING 2026-06-30 11:06:02,769 log 17656 6540 "GET /favicon.ico HTTP/1.1" 404 3434
+INFO 2026-06-30 11:06:05,312 views 17656 6540 User 'deepak_singh' logged in from 127.0.0.1
+INFO 2026-06-30 11:06:05,366 log 17656 6540 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-06-30 11:06:05,451 log 17656 6540 "GET /dashboard/ HTTP/1.1" 200 12711
+INFO 2026-06-30 11:06:07,698 log 17656 6540 "GET /reports/submit/ HTTP/1.1" 200 13447
+INFO 2026-06-30 11:06:18,472 log 17656 6540 "GET /dashboard/ HTTP/1.1" 200 12211
+INFO 2026-06-30 11:06:23,427 log 17656 6540 "GET /reports/history/ HTTP/1.1" 200 10699
+INFO 2026-06-30 11:06:25,694 log 17656 6540 "GET /reports/history/?keyword=&date_range= HTTP/1.1" 200 10699
+INFO 2026-06-30 11:06:29,099 log 17656 6540 "GET /reports/history/?keyword=&date_range=yesterday HTTP/1.1" 200 10836
+INFO 2026-06-30 11:07:21,537 log 17656 6540 "GET /reports/1/ HTTP/1.1" 200 10345
+INFO 2026-06-30 11:07:24,735 log 17656 6540 "GET /reports/history/ HTTP/1.1" 200 10699
+INFO 2026-06-30 11:07:37,761 log 17656 16728 "GET / HTTP/1.1" 302 0
+INFO 2026-06-30 11:07:37,766 log 17656 16728 "GET /dashboard/ HTTP/1.1" 302 0
+INFO 2026-06-30 11:07:37,775 log 17656 16728 "GET /accounts/login/?next=/dashboard/ HTTP/1.1" 200 2729
+INFO 2026-06-30 11:07:37,791 log 17656 16728 "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2026-06-30 11:07:37,798 log 17656 16728 "GET /static/js/app.js HTTP/1.1" 304 0
+WARNING 2026-06-30 11:07:38,132 log 17656 16728 Not Found: /favicon.ico
+WARNING 2026-06-30 11:07:38,132 log 17656 16728 "GET /favicon.ico HTTP/1.1" 404 3434
+INFO 2026-06-30 11:07:46,029 views 17656 16728 User 'dird' logged in from 127.0.0.1
+INFO 2026-06-30 11:07:46,079 log 17656 16728 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-06-30 11:07:46,165 log 17656 16728 "GET /dashboard/ HTTP/1.1" 200 16291
+INFO 2026-06-30 11:07:49,790 log 17656 16728 "GET /reports/admin/activities/ HTTP/1.1" 200 9518
+INFO 2026-06-30 11:07:50,598 log 17656 16728 "GET /reports/admin/ HTTP/1.1" 200 14345
+INFO 2026-06-30 11:07:52,453 log 17656 16728 "GET /employees/add/ HTTP/1.1" 200 13747
+INFO 2026-06-30 11:07:54,174 log 17656 16728 "GET /reports/admin/activities/ HTTP/1.1" 200 9518
+INFO 2026-06-30 11:07:55,749 log 17656 16728 "GET /reports/admin/activities/add/ HTTP/1.1" 200 9913
+INFO 2026-06-30 11:08:20,411 log 17656 16728 "POST /reports/admin/activities/add/ HTTP/1.1" 302 0
+INFO 2026-06-30 11:08:20,440 log 17656 16728 "GET /reports/admin/activities/ HTTP/1.1" 200 11136
+INFO 2026-06-30 11:08:27,850 log 17656 6540 "GET /reports/history/ HTTP/1.1" 200 10699
+INFO 2026-06-30 11:08:28,460 log 17656 6540 "GET /reports/submit/ HTTP/1.1" 200 13573
+INFO 2026-06-30 11:09:19,735 log 17656 6540 "POST /reports/submit/ HTTP/1.1" 302 0
+INFO 2026-06-30 11:09:19,773 log 17656 6540 "GET /dashboard/ HTTP/1.1" 200 12980
+INFO 2026-06-30 11:09:22,865 log 17656 6540 "GET /reports/2/ HTTP/1.1" 200 10079
+INFO 2026-06-30 11:09:25,854 log 17656 6540 "GET /reports/history/ HTTP/1.1" 200 11557
+INFO 2026-06-30 11:09:27,862 log 17656 6540 "GET /reports/1/ HTTP/1.1" 200 10345
+INFO 2026-06-30 11:09:30,311 log 17656 6540 "GET /reports/history/ HTTP/1.1" 200 11557
+INFO 2026-06-30 11:09:35,006 log 17656 6540 "GET /reports/2/ HTTP/1.1" 200 10079
+INFO 2026-06-30 11:09:50,567 log 17656 16728 "GET /reports/admin/activities/ HTTP/1.1" 200 10743
+INFO 2026-06-30 11:09:53,447 log 17656 16728 "GET /notifications/ HTTP/1.1" 200 9450
+INFO 2026-06-30 11:09:57,386 log 17656 16728 "GET /reports/admin/2/ HTTP/1.1" 200 12185
+WARNING 2026-06-30 11:10:11,699 log 17656 16728 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-06-30 11:10:11,699 log 17656 16728 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3545
+INFO 2026-06-30 11:12:27,750 log 17656 16728 "GET /reports/admin/2/ HTTP/1.1" 200 12185
+WARNING 2026-06-30 11:12:27,779 log 17656 16728 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-06-30 11:12:27,779 log 17656 16728 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3545
+INFO 2026-06-30 11:19:19,247 log 17656 12392 "GET /reports/2/ HTTP/1.1" 200 10079
+INFO 2026-06-30 11:19:20,283 log 17656 12392 "GET /reports/2/ HTTP/1.1" 200 10079
+INFO 2026-06-30 11:19:20,536 log 17656 12392 "GET /reports/2/ HTTP/1.1" 200 10079
+INFO 2026-06-30 11:19:20,733 log 17656 12392 "GET /reports/2/ HTTP/1.1" 200 10079
+INFO 2026-06-30 11:19:20,900 log 17656 12392 "GET /reports/2/ HTTP/1.1" 200 10079
+INFO 2026-06-30 11:19:29,083 log 17656 9040 "GET /reports/admin/2/ HTTP/1.1" 200 13878
+WARNING 2026-06-30 11:19:29,216 log 17656 9040 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-06-30 11:19:29,217 log 17656 9040 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3545
+INFO 2026-06-30 11:21:02,415 log 17656 12392 "GET /reports/2/ HTTP/1.1" 200 10079
+INFO 2026-06-30 11:21:06,520 log 17656 9040 "GET /reports/admin/2/ HTTP/1.1" 200 12262
+WARNING 2026-06-30 11:21:06,554 log 17656 9040 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-06-30 11:21:06,555 log 17656 9040 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3545
+INFO 2026-06-30 11:21:08,198 log 17656 9040 "GET /reports/admin/2/ HTTP/1.1" 200 12262
+WARNING 2026-06-30 11:21:08,223 log 17656 9040 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-06-30 11:21:08,224 log 17656 9040 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3545
+INFO 2026-06-30 11:21:09,066 log 17656 9040 "GET /reports/admin/2/ HTTP/1.1" 200 12262
+WARNING 2026-06-30 11:21:09,095 log 17656 9040 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-06-30 11:21:09,095 log 17656 9040 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3545
+INFO 2026-06-30 11:21:13,455 log 17656 12392 "GET /reports/2/ HTTP/1.1" 200 10079
+INFO 2026-06-30 11:21:15,535 log 17656 9040 "GET /reports/admin/2/ HTTP/1.1" 200 12262
+WARNING 2026-06-30 11:21:15,581 log 17656 9040 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-06-30 11:21:15,582 log 17656 9040 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3545
+INFO 2026-06-30 11:21:38,164 log 17656 12392 "GET /reports/2/ HTTP/1.1" 200 10079
+INFO 2026-06-30 11:21:39,180 log 17656 12392 "GET /reports/2/ HTTP/1.1" 200 10079
+INFO 2026-06-30 11:21:39,390 log 17656 12392 "GET /reports/2/ HTTP/1.1" 200 10079
+INFO 2026-06-30 11:21:41,873 log 17656 9040 "GET /reports/admin/2/ HTTP/1.1" 200 12280
+WARNING 2026-06-30 11:21:41,896 log 17656 9040 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-06-30 11:21:41,897 log 17656 9040 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3545
+INFO 2026-06-30 11:21:42,266 log 17656 9040 "GET /reports/admin/2/ HTTP/1.1" 200 12280
+WARNING 2026-06-30 11:21:42,322 log 17656 9040 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-06-30 11:21:42,322 log 17656 9040 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3545
+INFO 2026-06-30 11:21:42,683 log 17656 9040 "GET /reports/admin/2/ HTTP/1.1" 200 12280
+WARNING 2026-06-30 11:21:42,726 log 17656 9040 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-06-30 11:21:42,726 log 17656 9040 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3545
+INFO 2026-06-30 11:21:53,266 autoreload 6016 1016 Watching for file changes with StatReloader
+INFO 2026-06-30 11:22:01,945 log 6016 12908 "GET /reports/admin/2/ HTTP/1.1" 200 12280
+WARNING 2026-06-30 11:22:01,976 log 6016 12908 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-06-30 11:22:01,977 log 6016 12908 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3545
+INFO 2026-06-30 11:22:03,199 log 6016 12908 "GET /reports/admin/2/ HTTP/1.1" 200 12280
+WARNING 2026-06-30 11:22:03,240 log 6016 12908 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-06-30 11:22:03,240 log 6016 12908 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3545
+INFO 2026-06-30 11:22:05,179 log 6016 12908 "GET /reports/admin/activities/ HTTP/1.1" 200 10616
+WARNING 2026-06-30 11:22:05,227 log 6016 12908 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-06-30 11:22:05,227 log 6016 12908 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3545
+INFO 2026-06-30 11:22:07,347 log 6016 12908 "GET /reports/admin/ HTTP/1.1" 200 15892
+WARNING 2026-06-30 11:22:07,592 log 6016 12908 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-06-30 11:22:07,593 log 6016 12908 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3545
+INFO 2026-06-30 11:22:10,129 log 6016 12908 "GET /reports/admin/2/ HTTP/1.1" 200 12280
+WARNING 2026-06-30 11:22:10,220 log 6016 12908 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-06-30 11:22:10,220 log 6016 12908 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3545
+WARNING 2026-06-30 11:22:15,355 log 6016 12908 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-06-30 11:22:15,355 log 6016 12908 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3545
+WARNING 2026-06-30 11:22:15,400 log 6016 12908 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-06-30 11:22:15,402 log 6016 12908 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3545
+INFO 2026-06-30 11:22:16,590 log 6016 12908 "GET /reports/admin/1/ HTTP/1.1" 200 12511
+WARNING 2026-06-30 11:22:16,705 log 6016 12908 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-06-30 11:22:16,706 log 6016 12908 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3545
+WARNING 2026-06-30 11:22:18,810 log 6016 12908 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-06-30 11:22:18,810 log 6016 12908 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3545
+WARNING 2026-06-30 11:22:18,838 log 6016 12908 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-06-30 11:22:18,840 log 6016 12908 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3545
+INFO 2026-06-30 11:22:21,185 log 6016 12908 "GET /reports/admin/2/ HTTP/1.1" 200 12280
+WARNING 2026-06-30 11:22:21,227 log 6016 12908 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-06-30 11:22:21,227 log 6016 12908 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3545
+INFO 2026-06-30 12:11:08,451 log 6016 7752 "GET / HTTP/1.1" 302 0
+INFO 2026-06-30 12:11:08,492 log 6016 7752 "GET /dashboard/ HTTP/1.1" 302 0
+INFO 2026-06-30 12:11:08,559 log 6016 7752 "GET /accounts/login/?next=/dashboard/ HTTP/1.1" 200 2729
+INFO 2026-06-30 12:11:08,635 log 6016 19008 "GET /static/js/app.js HTTP/1.1" 200 7774
+INFO 2026-06-30 12:11:08,636 log 6016 7752 "GET /static/css/style.css HTTP/1.1" 200 23871
+WARNING 2026-06-30 12:11:09,694 log 6016 19008 Not Found: /favicon.ico
+WARNING 2026-06-30 12:11:09,694 log 6016 19008 "GET /favicon.ico HTTP/1.1" 404 3434
+INFO 2026-06-30 12:11:15,386 log 6016 9956 "GET /reports/2/ HTTP/1.1" 200 10079
+INFO 2026-06-30 12:11:16,218 log 6016 9956 "GET /reports/2/ HTTP/1.1" 200 10079
+INFO 2026-06-30 12:11:16,407 log 6016 9956 "GET /reports/2/ HTTP/1.1" 200 10079
+INFO 2026-06-30 12:11:16,568 log 6016 9956 "GET /reports/2/ HTTP/1.1" 200 10079
+INFO 2026-06-30 12:11:16,751 log 6016 9956 "GET /reports/2/ HTTP/1.1" 200 10079
+INFO 2026-06-30 12:11:16,923 log 6016 9956 "GET /reports/2/ HTTP/1.1" 200 10079
+INFO 2026-06-30 12:11:18,513 log 6016 9956 "GET /dashboard/ HTTP/1.1" 200 12457
+INFO 2026-06-30 12:11:21,688 log 6016 9956 "GET /reports/2/ HTTP/1.1" 200 10079
+INFO 2026-06-30 12:11:23,070 log 6016 9956 "GET /dashboard/ HTTP/1.1" 200 12457
+INFO 2026-06-30 12:13:39,159 autoreload 7312 18824 Watching for file changes with StatReloader
+INFO 2026-06-30 12:13:42,851 log 7312 8728 "GET /dashboard/ HTTP/1.1" 200 12457
+INFO 2026-06-30 12:13:43,618 log 7312 8728 "GET /dashboard/ HTTP/1.1" 200 12457
+INFO 2026-06-30 12:13:43,789 log 7312 8728 "GET /dashboard/ HTTP/1.1" 200 12457
+INFO 2026-06-30 12:13:43,944 log 7312 8728 "GET /dashboard/ HTTP/1.1" 200 12457
+INFO 2026-06-30 12:13:44,961 log 7312 8728 "GET /reports/submit/ HTTP/1.1" 302 0
+INFO 2026-06-30 12:13:44,967 log 7312 8728 "GET /reports/history/ HTTP/1.1" 200 12085
+INFO 2026-06-30 12:13:47,510 log 7312 8728 "GET /reports/2/ HTTP/1.1" 200 10109
+INFO 2026-06-30 12:13:56,800 log 7312 11652 "GET /reports/admin/2/ HTTP/1.1" 200 12280
+INFO 2026-06-30 12:13:57,539 log 7312 11652 "GET /reports/admin/2/ HTTP/1.1" 200 12280
+INFO 2026-06-30 12:13:57,850 log 7312 11652 "GET /reports/admin/2/ HTTP/1.1" 200 12280
+INFO 2026-06-30 12:13:58,020 log 7312 11652 "GET /reports/admin/2/ HTTP/1.1" 200 12280
+INFO 2026-06-30 12:13:58,614 log 7312 11652 "GET /reports/admin/2/ HTTP/1.1" 200 12280
+INFO 2026-06-30 12:13:58,785 log 7312 11652 "GET /reports/admin/2/ HTTP/1.1" 200 12280
+INFO 2026-06-30 12:13:58,935 log 7312 11652 "GET /reports/admin/2/ HTTP/1.1" 200 12280
+INFO 2026-06-30 12:13:59,097 log 7312 11652 "GET /reports/admin/2/ HTTP/1.1" 200 12280
+INFO 2026-06-30 12:13:59,258 log 7312 11652 "GET /reports/admin/2/ HTTP/1.1" 200 12280
+INFO 2026-06-30 12:14:00,564 log 7312 11652 "GET /dashboard/ HTTP/1.1" 200 16603
+INFO 2026-06-30 12:14:01,384 log 7312 11652 "GET /dashboard/ HTTP/1.1" 200 16603
+INFO 2026-06-30 12:14:01,550 log 7312 11652 "GET /dashboard/ HTTP/1.1" 200 16603
+INFO 2026-06-30 12:14:01,756 log 7312 11652 "GET /dashboard/ HTTP/1.1" 200 16603
+INFO 2026-06-30 12:14:15,374 log 7312 11652 "GET /employees/ HTTP/1.1" 200 12256
+INFO 2026-06-30 12:14:16,242 log 7312 11652 "GET /reports/admin/?date_range=today HTTP/1.1" 200 14523
+INFO 2026-06-30 12:14:16,837 log 7312 11652 "GET /reports/admin/activities/ HTTP/1.1" 200 10616
+INFO 2026-06-30 12:14:17,569 log 7312 11652 "GET /reports/admin/?date_range=today HTTP/1.1" 200 14523
+INFO 2026-06-30 12:14:19,431 log 7312 11652 "GET /reports/admin/2/ HTTP/1.1" 200 12310
+INFO 2026-06-30 12:14:36,103 log 7312 11652 "GET /reports/admin/2/ HTTP/1.1" 200 12310
+INFO 2026-06-30 12:56:15,329 autoreload 10104 9484 Watching for file changes with StatReloader
+INFO 2026-06-30 12:56:18,504 log 10104 7664 "GET /accounts/login/ HTTP/1.1" 200 2729
+INFO 2026-06-30 12:56:18,515 log 10104 13244 "GET /static/js/app.js HTTP/1.1" 200 7774
+INFO 2026-06-30 12:56:18,515 log 10104 7664 "GET /static/css/style.css HTTP/1.1" 200 23871
+WARNING 2026-06-30 12:56:19,601 log 10104 13244 Not Found: /favicon.ico
+WARNING 2026-06-30 12:56:19,602 log 10104 13244 "GET /favicon.ico HTTP/1.1" 404 3434
+INFO 2026-06-30 14:16:35,983 log 10104 12104 "HEAD / HTTP/1.1" 302 0
+INFO 2026-06-30 14:18:25,142 views 10104 11036 User 'deepak_singh' logged in from 127.0.0.1
+INFO 2026-06-30 14:18:25,256 log 10104 11036 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-06-30 14:18:25,477 log 10104 11036 "GET /dashboard/ HTTP/1.1" 200 13017
+INFO 2026-06-30 14:19:03,820 log 10104 11036 "GET /reports/3/ HTTP/1.1" 200 11558
+INFO 2026-06-30 14:20:59,718 log 10104 11036 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-06-30 14:20:59,729 log 10104 11036 "GET /dashboard/ HTTP/1.1" 200 12517
+WARNING 2026-06-30 14:21:59,809 log 10104 11036 Method Not Allowed (GET): /accounts/logout/
+WARNING 2026-06-30 14:21:59,809 log 10104 11036 "GET /accounts/logout/ HTTP/1.1" 405 0
+INFO 2026-06-30 14:22:22,791 log 10104 11036 "GET /dashboard/ HTTP/1.1" 200 12517
+INFO 2026-06-30 14:24:40,502 log 10104 11036 "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2026-06-30 14:24:40,517 log 10104 11036 "GET /accounts/login/ HTTP/1.1" 200 2995
+INFO 2026-06-30 14:25:18,214 views 10104 11036 User 'admin' logged in from 127.0.0.1
+INFO 2026-06-30 14:25:18,283 log 10104 11036 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-06-30 14:25:18,344 log 10104 11036 "GET /dashboard/ HTTP/1.1" 200 17253
+INFO 2026-06-30 14:25:58,837 log 10104 11036 "GET /reports/admin/3/ HTTP/1.1" 200 13083
+INFO 2026-06-30 14:46:28,630 log 10104 8360 "GET /reports/admin/3/ HTTP/1.1" 200 13083
+INFO 2026-06-30 15:04:33,960 log 10104 9376 "GET /reports/admin/3/ HTTP/1.1" 200 13087
+INFO 2026-06-30 15:04:34,063 log 10104 6852 "GET /static/js/app.js HTTP/1.1" 304 0
+INFO 2026-06-30 15:04:34,063 log 10104 9376 "GET /static/css/style.css?v=2 HTTP/1.1" 200 24750
+INFO 2026-07-01 16:12:24,897 autoreload 7160 12412 Watching for file changes with StatReloader
+INFO 2026-07-01 16:13:59,530 log 7160 9192 "GET / HTTP/1.1" 302 0
+INFO 2026-07-01 16:13:59,530 log 7160 9192 "GET /dashboard/ HTTP/1.1" 302 0
+INFO 2026-07-01 16:13:59,664 log 7160 9192 "GET /accounts/login/?next=/dashboard/ HTTP/1.1" 200 2729
+INFO 2026-07-01 16:13:59,765 log 7160 3376 "GET /static/js/app.js HTTP/1.1" 200 7774
+INFO 2026-07-01 16:13:59,772 log 7160 9192 "GET /static/css/style.css HTTP/1.1" 200 24750
+WARNING 2026-07-01 16:14:01,376 log 7160 9192 Not Found: /favicon.ico
+WARNING 2026-07-01 16:14:01,376 log 7160 9192 "GET /favicon.ico HTTP/1.1" 404 3438
+INFO 2026-07-01 16:14:06,563 views 7160 9192 User 'dird' logged in from 192.168.1.158
+INFO 2026-07-01 16:14:06,618 log 7160 9192 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-07-01 16:14:08,216 log 7160 9192 "GET /dashboard/ HTTP/1.1" 200 17490
+INFO 2026-07-01 16:14:08,253 log 7160 9192 "GET /static/css/style.css?v=2 HTTP/1.1" 200 24750
+INFO 2026-07-01 16:14:32,255 basehttp 7160 9192 - Broken pipe from ('192.168.1.158', 57331)
+INFO 2026-07-01 16:14:32,255 basehttp 7160 3376 - Broken pipe from ('192.168.1.158', 57332)
+INFO 2026-07-01 16:14:44,871 log 7160 19492 "GET /dashboard/ HTTP/1.1" 302 0
+INFO 2026-07-01 16:14:44,876 log 7160 19492 "GET /accounts/login/?next=/dashboard/ HTTP/1.1" 200 2729
+INFO 2026-07-01 16:14:44,943 log 7160 19492 "GET /static/css/style.css HTTP/1.1" 200 24750
+INFO 2026-07-01 16:14:44,944 log 7160 12712 "GET /static/js/app.js HTTP/1.1" 200 7774
+WARNING 2026-07-01 16:14:45,331 log 7160 12712 Not Found: /favicon.ico
+WARNING 2026-07-01 16:14:45,331 log 7160 12712 "GET /favicon.ico HTTP/1.1" 404 3437
+INFO 2026-07-01 16:14:50,287 views 7160 12712 User 'dird' logged in from 192.168.8.42
+INFO 2026-07-01 16:14:50,364 log 7160 12712 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-07-01 16:14:50,402 log 7160 12712 "GET /dashboard/ HTTP/1.1" 200 17490
+INFO 2026-07-01 16:14:50,426 log 7160 12712 "GET /static/css/style.css?v=2 HTTP/1.1" 200 24750
+INFO 2026-07-01 16:14:57,157 log 7160 12712 "GET /notifications/ HTTP/1.1" 200 9454
+WARNING 2026-07-01 16:14:59,704 log 7160 12712 Not Found: /reports/admin/2/
+WARNING 2026-07-01 16:14:59,705 log 7160 12712 "GET /reports/admin/2/ HTTP/1.1" 404 4263
+WARNING 2026-07-01 16:15:30,548 log 7160 12712 Not Found: /reports/admin/2/
+WARNING 2026-07-01 16:15:30,548 log 7160 12712 "GET /reports/admin/2/ HTTP/1.1" 404 4263
+WARNING 2026-07-01 16:15:38,110 log 7160 12712 Not Found: /reports/admin/2/
+WARNING 2026-07-01 16:15:38,111 log 7160 12712 "GET /reports/admin/2/ HTTP/1.1" 404 4263
+WARNING 2026-07-01 16:15:42,919 log 7160 12712 Not Found: /reports/admin/2/
+WARNING 2026-07-01 16:15:42,920 log 7160 12712 "GET /reports/admin/2/ HTTP/1.1" 404 4263
+INFO 2026-07-01 16:15:46,246 log 7160 12712 "GET /reports/admin/ HTTP/1.1" 200 15974
+INFO 2026-07-01 16:15:48,964 log 7160 12712 "GET /reports/admin/3/ HTTP/1.1" 200 12944
+INFO 2026-07-01 16:15:58,530 log 7160 12712 "GET /reports/admin/activities/ HTTP/1.1" 200 11586
+INFO 2026-07-01 16:16:08,291 log 7160 12712 "GET /reports/admin/?date_range=today HTTP/1.1" 200 12835
+INFO 2026-07-01 16:16:14,997 log 7160 12712 "GET /reports/admin/?keyword=&department=&employee=&date_range= HTTP/1.1" 200 16136
+INFO 2026-07-01 16:16:18,633 log 7160 12712 "GET /reports/export/pdf/?keyword=&department=&employee=&date_range= HTTP/1.1" 200 1951
+INFO 2026-07-01 16:16:34,435 log 7160 12712 "GET /reports/admin/activities/ HTTP/1.1" 200 11586
+INFO 2026-07-01 16:16:36,713 log 7160 12712 "GET /employees/ HTTP/1.1" 200 12330
+INFO 2026-07-01 16:16:40,183 log 7160 12712 "GET /employees/add/ HTTP/1.1" 200 13888
+INFO 2026-07-01 16:17:03,824 log 7160 12712 "GET /accounts/change-password/ HTTP/1.1" 200 9690
+INFO 2026-07-01 16:17:07,280 log 7160 12712 "GET /dashboard/ HTTP/1.1" 200 16998
+INFO 2026-07-01 16:17:09,797 log 7160 12712 "GET /employees/departments/ HTTP/1.1" 200 11772
+INFO 2026-07-01 16:17:11,146 log 7160 12712 "GET /employees/designations/ HTTP/1.1" 200 11821
+INFO 2026-07-01 16:17:15,808 log 7160 12712 "GET /reports/admin/activities/ HTTP/1.1" 200 11586
+INFO 2026-07-01 16:17:16,972 log 7160 12712 "GET /reports/admin/activities/add/ HTTP/1.1" 200 9917
+INFO 2026-07-01 16:17:19,939 log 7160 12712 "GET /core/settings/ HTTP/1.1" 200 12170
+INFO 2026-07-01 16:17:20,584 log 7160 12712 "GET /core/activity-log/ HTTP/1.1" 200 26107
+INFO 2026-07-01 16:17:23,720 log 7160 12712 "GET /notifications/ HTTP/1.1" 200 9454
+INFO 2026-07-01 16:17:24,450 log 7160 12712 "GET /core/settings/ HTTP/1.1" 200 12170
+INFO 2026-07-01 16:17:38,998 log 7160 12712 "POST /core/settings/ HTTP/1.1" 302 0
+INFO 2026-07-01 16:17:39,020 log 7160 12712 "GET /core/settings/ HTTP/1.1" 200 12663
+INFO 2026-07-01 16:17:46,884 log 7160 12712 "GET /core/settings/ HTTP/1.1" 200 12152
+INFO 2026-07-01 16:17:48,182 log 7160 12712 "GET /core/settings/ HTTP/1.1" 200 12152
+INFO 2026-07-01 16:17:53,617 log 7160 12712 "GET /notifications/ HTTP/1.1" 200 9442
+INFO 2026-07-01 16:17:55,349 log 7160 12712 "GET /reports/admin/ HTTP/1.1" 200 15962
+INFO 2026-07-01 16:17:55,854 log 7160 12712 "GET /dashboard/ HTTP/1.1" 200 16986
+INFO 2026-07-01 16:18:04,627 log 7160 12712 "GET /reports/admin/3/ HTTP/1.1" 200 12932

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Activity: {{ object.name }}{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">Home</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'reports:admin_activity_list' %}">Activities</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Delete Activity</li>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card border-0 rounded-custom shadow-sm bg-surface">
+      <div class="card-body p-4 text-center">
+        <div class="text-danger mb-3">
+          <i class="bi bi-exclamation-triangle-fill fs-1"></i>
+        </div>
+        <h3 class="fw-700 text-danger mb-2">Delete Activity?</h3>
+        <p class="text-muted mb-4">
+          Are you sure you want to delete the activity <strong class="text-primary-custom">"{{ object.name }}"</strong>? This action cannot be undone and may affect reports currently tagged with this activity.
+        </p>
+
+        <form method="post" data-loading>
+          {% csrf_token %}
+          <div class="d-flex gap-2 justify-content-center">
+            <a href="{% url 'reports:admin_activity_list' %}" class="btn btn-light px-4">Cancel</a>
+            <button type="submit" class="btn btn-danger px-4">
+              <i class="bi bi-trash-fill me-2"></i> Yes, Delete
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

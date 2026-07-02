@@ -17,6 +17,10 @@ urlpatterns = [
     path('admin/<int:pk>/', views.AdminReportDetailView.as_view(), name='admin_report_detail'),
     path('admin/<int:pk>/edit/', views.AdminReportEditView.as_view(), name='admin_report_edit'),
     path('admin/<int:pk>/delete/', views.AdminReportDeleteView.as_view(), name='admin_report_delete'),
+    path('admin/activities/', views.AdminActivityListView.as_view(), name='admin_activity_list'),
+    path('admin/activities/add/', views.AdminActivityCreateView.as_view(), name='admin_activity_create'),
+    path('admin/activities/<int:pk>/edit/', views.AdminActivityUpdateView.as_view(), name='admin_activity_update'),
+    path('admin/activities/<int:pk>/delete/', views.AdminActivityDeleteView.as_view(), name='admin_activity_delete'),
 
     # Exports
     path('export/csv/', views.ExportReportsCSVView.as_view(), name='export_csv'),

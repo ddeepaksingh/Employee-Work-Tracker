@@ -120,25 +120,21 @@
       
       {% if report_submitted_today %}
         <div class="alert alert-info text-center py-5">
-          <i class="bi bi-info-circle-fill fs-2 d-block mb-3 text-primary-custom"></i>
+          <i class="bi bi-check-circle-fill fs-2 d-block mb-3 text-success"></i>
           <h5 class="fw-700">You have already submitted today's report.</h5>
           <p class="text-muted mb-0">Only one report submission is allowed per employee per day. If you need to make changes, please contact your administrator.</p>
         </div>
       {% else %}
-        <form method="post" action="{% url 'reports:report_submit' %}" data-loading>
-          {% csrf_token %}
-          <div class="mb-3">
-            <label for="id_report_text" class="form-label">Write your report below:</label>
-            <textarea name="report_text" id="id_report_text" class="form-control report-textarea" required minlength="50" maxlength="5000" placeholder="List your key achievements, tasks completed, roadblocks, and plan for tomorrow..."></textarea>
-            <div class="d-flex justify-content-between align-items-center mt-2">
-              <span class="text-muted small">Minimum: 50 characters, Maximum: 5000 characters</span>
-              <div id="char-counter" class="char-counter">0 / 5000 characters (min: 50)</div>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary px-4 py-2">
-            <i class="bi bi-send-fill me-2"></i>Submit Daily Report
-          </button>
-        </form>
+        <div class="text-center py-5">
+          <i class="bi bi-file-earmark-plus-fill fs-1 d-block mb-3 text-accent"></i>
+          <h5 class="fw-700">Submit Today's Daily Work Report</h5>
+          <p class="text-muted mb-4 mx-auto" style="max-width: 450px;">
+            You haven't submitted your daily work report for today yet. Submit an activity-based report detailing the tasks completed and quantities performed.
+          </p>
+          <a href="{% url 'reports:report_submit' %}" class="btn btn-primary px-5 py-2.5 rounded-pill shadow-sm">
+            <i class="bi bi-pencil-square me-2"></i> Start Daily Work Report
+          </a>
+        </div>
       {% endif %}
     </div>
   </div>

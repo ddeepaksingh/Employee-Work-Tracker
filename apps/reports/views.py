@@ -9,7 +9,7 @@ from datetime import date
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse, Http404
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView, View
 
@@ -23,8 +23,9 @@ from openpyxl.styles import Font, PatternFill, Alignment
 from apps.core.mixins import AdminRequiredMixin, EmployeeRequiredMixin, OwnershipMixin
 from apps.core.utils import log_activity, get_client_ip, send_notification
 from apps.employees.models import Department, EmployeeProfile
-from .models import DailyReport
-from .forms import DailyReportForm, AdminReportEditForm, ReportFilterForm
+from django.db import models
+from .models import DailyReport, Activity, DailyReportActivity
+from .forms import DailyReportForm, AdminReportEditForm, ReportFilterForm, ActivityForm
 from .utils import apply_date_filter
 
 logger = logging.getLogger(__name__)
@@ -56,26 +57,128 @@ class ReportSubmitView(EmployeeRequiredMixin, CreateView):
             return redirect('reports:report_history')
         return super().dispatch(request, *args, **kwargs)
 
-    def form_valid(self, form):
-        profile = self.request.user.employee_profile
-        form.instance.employee = profile
-        form.instance.date = date.today()
-        resp = super().form_valid(form)
-        log_activity(
-            self.request.user, 'REPORT_CREATED',
-            f"Report submitted for {self.object.date}.",
-            get_client_ip(self.request),
-        )
-        # Notify admin(s)
-        for admin_user in User.objects.filter(is_staff=True):
-            send_notification(
-                admin_user,
-                f"{profile.full_name} submitted their report for {self.object.date}.",
-                'info',
-                f'/reports/admin/{self.object.pk}/',
+    def post(self, request, *args, **kwargs):
+        profile = request.user.employee_profile
+        today = date.today()
+
+        if DailyReport.objects.filter(employee=profile, date=today).exists():
+            messages.warning(request, 'You have already submitted today\'s report.')
+            return redirect('reports:report_history')
+
+        # Parse dynamic activity entries
+        activities = request.POST.getlist('activity')
+        reports = request.POST.getlist('report')
+        quantities = request.POST.getlist('quantity')
+
+        errors = []
+        submitted_entries = []
+
+        active_activities = Activity.objects.filter(is_active=True)
+        active_ids = set(active_activities.values_list('id', flat=True))
+
+        for i in range(len(activities)):
+            act_id_str = activities[i].strip()
+            rep_text = reports[i].strip()
+            qty_str = quantities[i].strip()
+
+            # Skip row if completely empty
+            if not act_id_str and not rep_text and not qty_str:
+                continue
+
+            row_error = None
+            if not act_id_str:
+                row_error = "Please select an activity."
+            else:
+                try:
+                    act_id = int(act_id_str)
+                    if act_id not in active_ids:
+                        row_error = "Selected activity is invalid or inactive."
+                except ValueError:
+                    row_error = "Invalid activity choice."
+
+            if not rep_text:
+                row_error = row_error or "Report details cannot be blank."
+            elif len(rep_text) < 10:
+                row_error = row_error or "Report details must be at least 10 characters."
+
+            qty = None
+            if not qty_str:
+                row_error = row_error or "Quantity cannot be blank."
+            else:
+                try:
+                    qty = int(qty_str)
+                    if qty <= 0:
+                        row_error = row_error or "Quantity must be a positive integer."
+                except ValueError:
+                    row_error = row_error or "Quantity must be a numeric value."
+
+            if row_error:
+                errors.append(f"Row {i+1}: {row_error}")
+
+            submitted_entries.append({
+                'activity_id': int(act_id_str) if act_id_str.isdigit() else '',
+                'report_text': rep_text,
+                'quantity': qty_str,
+            })
+
+        if not submitted_entries:
+            errors.append("You must add at least one activity entry.")
+
+        if errors:
+            for err in errors:
+                messages.error(request, err)
+            return render(request, self.template_name, {
+                'form': self.get_form(),
+                'active_activities': active_activities,
+                'submitted_entries': submitted_entries,
+            })
+
+        import django.db.transaction as transaction
+        try:
+            with transaction.atomic():
+                report = DailyReport.objects.create(
+                    employee=profile,
+                    date=today,
+                    report_text="",
+                )
+                for entry in submitted_entries:
+                    DailyReportActivity.objects.create(
+                        daily_report=report,
+                        activity_id=entry['activity_id'],
+                        report_text=entry['report_text'],
+                        quantity=int(entry['quantity']),
+                    )
+                report.save()
+
+            log_activity(
+                self.request.user, 'REPORT_CREATED',
+                f"Report submitted for {report.date}.",
+                get_client_ip(self.request),
             )
-        messages.success(self.request, 'Your daily report has been submitted successfully!')
-        return resp
+            for admin_user in User.objects.filter(is_staff=True):
+                send_notification(
+                    admin_user,
+                    f"{profile.full_name} submitted their report for {report.date}.",
+                    'info',
+                    f'/reports/admin/{report.pk}/',
+                )
+            messages.success(self.request, 'Your daily report has been submitted successfully!')
+            return redirect(self.success_url)
+        except Exception as e:
+            logger.exception("Error saving report")
+            messages.error(request, f"An error occurred while saving your report: {e}")
+            return render(request, self.template_name, {
+                'form': self.get_form(),
+                'active_activities': active_activities,
+                'submitted_entries': submitted_entries,
+            })
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['active_activities'] = Activity.objects.filter(is_active=True)
+        ctx['submitted_entries'] = []
+        return ctx
+
 
 
 # ── Employee: Report History ──────────────────────────────────────────────────
@@ -129,6 +232,13 @@ class ReportDetailView(EmployeeRequiredMixin, OwnershipMixin, DetailView):
     template_name = 'reports/report_detail.html'
     context_object_name = 'report'
 
+    def get_queryset(self):
+        return DailyReport.objects.select_related(
+            'employee__user',
+            'employee__department',
+            'employee__designation',
+        ).prefetch_related('activities__activity')
+
 
 # ── Admin: Report Management ──────────────────────────────────────────────────
 
@@ -181,6 +291,13 @@ class AdminReportDetailView(AdminRequiredMixin, DetailView):
     template_name = 'reports/admin_report_detail.html'
     context_object_name = 'report'
 
+    def get_queryset(self):
+        return DailyReport.objects.select_related(
+            'employee__user',
+            'employee__department',
+            'employee__designation',
+        ).prefetch_related('activities__activity')
+
 
 class AdminReportEditView(AdminRequiredMixin, UpdateView):
     model = DailyReport
@@ -190,22 +307,144 @@ class AdminReportEditView(AdminRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('reports:admin_report_detail', kwargs={'pk': self.object.pk})
 
-    def form_valid(self, form):
-        form.instance.is_edited = True
-        resp = super().form_valid(form)
-        log_activity(
-            self.request.user, 'REPORT_UPDATED',
-            f"Report #{self.object.pk} for {self.object.employee.full_name} updated.",
-            get_client_ip(self.request),
-        )
-        send_notification(
-            self.object.employee.user,
-            f'Your report for {self.object.date} was edited by an administrator.',
-            'warning',
-            f'/reports/{self.object.pk}/',
-        )
-        messages.success(self.request, 'Report updated successfully.')
-        return resp
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+
+        # Parse inputs
+        activities = request.POST.getlist('activity')
+        reports = request.POST.getlist('report')
+        quantities = request.POST.getlist('quantity')
+
+        errors = []
+        submitted_entries = []
+        active_activities = Activity.objects.filter(is_active=True)
+        active_ids = set(active_activities.values_list('id', flat=True))
+
+        for i in range(len(activities)):
+            act_id_str = activities[i].strip()
+            rep_text = reports[i].strip()
+            qty_str = quantities[i].strip()
+
+            if not act_id_str and not rep_text and not qty_str:
+                continue
+
+            row_error = None
+            if not act_id_str:
+                row_error = "Please select an activity."
+            else:
+                try:
+                    act_id = int(act_id_str)
+                    existing_activity_ids = set(self.object.activities.values_list('activity_id', flat=True))
+                    if act_id not in active_ids and act_id not in existing_activity_ids:
+                        row_error = "Selected activity is invalid."
+                except ValueError:
+                    row_error = "Invalid activity choice."
+
+            if not rep_text:
+                row_error = row_error or "Report details cannot be blank."
+            elif len(rep_text) < 10:
+                row_error = row_error or "Report details must be at least 10 characters."
+
+            qty = None
+            if not qty_str:
+                row_error = row_error or "Quantity cannot be blank."
+            else:
+                try:
+                    qty = int(qty_str)
+                    if qty <= 0:
+                        row_error = row_error or "Quantity must be a positive integer."
+                except ValueError:
+                    row_error = row_error or "Quantity must be a numeric value."
+
+            if row_error:
+                errors.append(f"Row {i+1}: {row_error}")
+
+            submitted_entries.append({
+                'activity_id': int(act_id_str) if act_id_str.isdigit() else '',
+                'report_text': rep_text,
+                'quantity': qty_str,
+            })
+
+        if not submitted_entries:
+            errors.append("You must add at least one activity entry.")
+
+        if not form.is_valid() or errors:
+            for err in errors:
+                messages.error(request, err)
+            existing_act_ids = self.object.activities.values_list('activity_id', flat=True)
+            all_selectable_activities = Activity.objects.filter(
+                models.Q(is_active=True) | models.Q(id__in=existing_act_ids)
+            ).distinct()
+            return render(request, self.template_name, {
+                'form': form,
+                'object': self.object,
+                'active_activities': all_selectable_activities,
+                'submitted_entries': submitted_entries,
+            })
+
+        import django.db.transaction as transaction
+        try:
+            with transaction.atomic():
+                report = form.save(commit=False)
+                report.is_edited = True
+                report.save()
+
+                # Delete all current activity entries
+                report.activities.all().delete()
+
+                # Create new activity entries
+                for entry in submitted_entries:
+                    DailyReportActivity.objects.create(
+                        daily_report=report,
+                        activity_id=entry['activity_id'],
+                        report_text=entry['report_text'],
+                        quantity=int(entry['quantity']),
+                    )
+                report.save()
+
+            log_activity(
+                request.user, 'REPORT_UPDATED',
+                f"Report #{report.pk} for {report.employee.full_name} updated.",
+                get_client_ip(request),
+            )
+            send_notification(
+                report.employee.user,
+                f'Your report for {report.date} was edited by an administrator.',
+                'warning',
+                f'/reports/{report.pk}/',
+            )
+            messages.success(request, 'Report updated successfully.')
+            return redirect(self.get_success_url())
+        except Exception as e:
+            logger.exception("Error updating report")
+            messages.error(request, f"An error occurred while updating the report: {e}")
+            existing_act_ids = self.object.activities.values_list('activity_id', flat=True)
+            all_selectable_activities = Activity.objects.filter(
+                models.Q(is_active=True) | models.Q(id__in=existing_act_ids)
+            ).distinct()
+            return render(request, self.template_name, {
+                'form': form,
+                'object': self.object,
+                'active_activities': all_selectable_activities,
+                'submitted_entries': submitted_entries,
+            })
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        existing_act_ids = self.object.activities.values_list('activity_id', flat=True)
+        ctx['active_activities'] = Activity.objects.filter(
+            models.Q(is_active=True) | models.Q(id__in=existing_act_ids)
+        ).distinct()
+        ctx['submitted_entries'] = [
+            {
+                'activity_id': ra.activity_id,
+                'report_text': ra.report_text,
+                'quantity': ra.quantity,
+            }
+            for ra in self.object.activities.all()
+        ]
+        return ctx
 
 
 class AdminReportDeleteView(AdminRequiredMixin, DeleteView):
@@ -350,3 +589,64 @@ class ExportReportsPDFView(AdminRequiredMixin, View):
         response['Content-Disposition'] = 'attachment; filename="reports.pdf"'
         log_activity(request.user, 'EXPORT', 'PDF export of reports.', get_client_ip(request))
         return response
+
+
+# ── Admin: Activity Management ────────────────────────────────────────────────
+
+class AdminActivityListView(AdminRequiredMixin, ListView):
+    model = Activity
+    template_name = 'reports/admin_activity_list.html'
+    context_object_name = 'activities'
+    paginate_by = 20
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        q = self.request.GET.get('q', '')
+        if q:
+            qs = qs.filter(name__icontains=q)
+        return qs
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['search_query'] = self.request.GET.get('q', '')
+        return ctx
+
+
+class AdminActivityCreateView(AdminRequiredMixin, CreateView):
+    model = Activity
+    form_class = ActivityForm
+    template_name = 'reports/admin_activity_form.html'
+    success_url = reverse_lazy('reports:admin_activity_list')
+
+    def form_valid(self, form):
+        resp = super().form_valid(form)
+        log_activity(self.request.user, 'ACTIVITY_CREATED', f"Activity '{self.object.name}' created.", get_client_ip(self.request))
+        messages.success(self.request, f"Activity '{self.object.name}' created successfully.")
+        return resp
+
+
+class AdminActivityUpdateView(AdminRequiredMixin, UpdateView):
+    model = Activity
+    form_class = ActivityForm
+    template_name = 'reports/admin_activity_form.html'
+    success_url = reverse_lazy('reports:admin_activity_list')
+
+    def form_valid(self, form):
+        resp = super().form_valid(form)
+        log_activity(self.request.user, 'ACTIVITY_UPDATED', f"Activity '{self.object.name}' updated.", get_client_ip(self.request))
+        messages.success(self.request, f"Activity '{self.object.name}' updated successfully.")
+        return resp
+
+
+class AdminActivityDeleteView(AdminRequiredMixin, DeleteView):
+    model = Activity
+    template_name = 'reports/admin_activity_confirm_delete.html'
+    success_url = reverse_lazy('reports:admin_activity_list')
+
+    def form_valid(self, form):
+        name = self.object.name
+        resp = super().form_valid(form)
+        log_activity(self.request.user, 'ACTIVITY_DELETED', f"Activity '{name}' deleted.", get_client_ip(self.request))
+        messages.success(self.request, f"Activity '{name}' deleted successfully.")
+        return resp
+

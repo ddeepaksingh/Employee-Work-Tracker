@@ -6,51 +6,40 @@ from django.conf import settings
 from .models import DailyReport
 
 
+from .models import DailyReport, Activity, DailyReportActivity
+
+
+class ActivityForm(forms.ModelForm):
+    """Form for admins to create and manage activities."""
+
+    class Meta:
+        model = Activity
+        fields = ['name', 'description', 'is_active']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'id': 'id_activity_name', 'placeholder': 'e.g. NOPR'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'id': 'id_activity_desc', 'placeholder': 'Describe this activity...'}),
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input', 'id': 'id_activity_active'}),
+        }
+
+
 class DailyReportForm(forms.ModelForm):
-    """Form for employees to submit their daily report."""
+    """Form for employees to submit their daily report (metadata/shell form)."""
 
     class Meta:
         model = DailyReport
-        fields = ['report_text']
-        widgets = {
-            'report_text': forms.Textarea(attrs={
-                'class': 'form-control',
-                'id': 'id_report_text',
-                'rows': 12,
-                'placeholder': 'Describe your work activities for today in detail...',
-                'minlength': getattr(settings, 'REPORT_MIN_LENGTH', 50),
-                'maxlength': getattr(settings, 'REPORT_MAX_LENGTH', 5000),
-            }),
-        }
-        labels = {'report_text': 'Today\'s Work Report'}
-
-    def clean_report_text(self):
-        text = self.cleaned_data.get('report_text', '').strip()
-        min_len = getattr(settings, 'REPORT_MIN_LENGTH', 50)
-        max_len = getattr(settings, 'REPORT_MAX_LENGTH', 5000)
-        if len(text) < min_len:
-            raise forms.ValidationError(f'Report must be at least {min_len} characters long.')
-        if len(text) > max_len:
-            raise forms.ValidationError(f'Report cannot exceed {max_len} characters.')
-        return text
+        fields = []
 
 
 class AdminReportEditForm(forms.ModelForm):
-    """Admin edit form for any daily report."""
+    """Admin edit form for any daily report (metadata/date only)."""
 
     class Meta:
         model = DailyReport
-        fields = ['report_text', 'date']
+        fields = ['date']
         widgets = {
-            'report_text': forms.Textarea(attrs={'class': 'form-control', 'rows': 12, 'id': 'id_admin_report_text'}),
             'date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date', 'id': 'id_admin_report_date'}),
         }
 
-    def clean_report_text(self):
-        text = self.cleaned_data.get('report_text', '').strip()
-        if len(text) < 10:
-            raise forms.ValidationError('Report is too short.')
-        return text
 
 
 class ReportFilterForm(forms.Form):

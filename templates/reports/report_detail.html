@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}Report Detail: {{ report.date }}{% endblock %}
+{% block title %}Report Detail: {{ report.employee.full_name|title }} — {{ report.date }}{% endblock %}
 
 {% block breadcrumb %}
   <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">Home</a></li>
   <li class="breadcrumb-item"><a href="{% url 'reports:report_history' %}">Report History</a></li>
-  <li class="breadcrumb-item active" aria-current="page">Report details</li>
+  <li class="breadcrumb-item active" aria-current="page">Details</li>
 {% endblock %}
 
 {% block content %}
@@ -13,28 +13,75 @@
   <div class="col-lg-8">
     <div class="card border-0 rounded-custom shadow-sm bg-surface">
       <div class="card-header py-3 d-flex justify-content-between align-items-center">
-        <h2 class="card-title m-0"><i class="bi bi-file-earmark-text text-accent"></i> Work Report Details</h2>
-        <span class="badge rounded-pill bg-light text-muted fw-600 px-3 py-2">{{ report.word_count }} words</span>
+        <h2 class="card-title m-0"><i class="bi bi-file-earmark-text text-accent"></i> Daily Work Report</h2>
       </div>
       <div class="card-body p-4">
-        
-        <div class="row g-3 mb-4 bg-light p-3 rounded border border-custom" style="background-color: var(--surface-2) !important;">
-          <div class="col-sm-6">
-            <span class="d-block small text-muted uppercase">Submission Date</span>
-            <strong class="text-primary-custom fs-5">{{ report.date|date:"l, d F Y" }}</strong>
+
+        <!-- Employee Header Summary -->
+        <div class="d-flex align-items-center gap-3 mb-4 bg-light p-3 rounded border border-custom"
+          style="background-color: var(--surface-2) !important;">
+          <div class="avatar-circle md">
+            {% if report.employee.avatar %}
+            <img src="{{ report.employee.avatar.url }}" alt="" />
+            {% else %}
+            {{ report.employee.user.first_name|first|upper }}{{ report.employee.user.last_name|first|upper }}
+            {% endif %}
           </div>
-          <div class="col-sm-6 border-start border-custom ps-sm-4">
+          <div>
+            <strong class="d-block text-primary-custom fs-5">{{ report.employee.full_name|title }}</strong>
+            <span class="text-muted small">
+              {{ report.employee.designation.name }} &bull; {{ report.employee.department.name }} &bull; ID: {{ report.employee.employee_id }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Timestamps & word counts metadata -->
+        <div class="row g-3 mb-4 border-top border-bottom border-custom py-3 my-3">
+          <div class="col-sm-4">
+            <span class="d-block small text-muted uppercase">Report Date</span>
+            <strong class="text-primary-custom">{{ report.date|date:"l, d F Y" }}</strong>
+          </div>
+          <div class="col-sm-4 border-start border-custom ps-sm-4">
             <span class="d-block small text-muted uppercase">Submitted At</span>
             <span class="text-primary-custom">{{ report.created_at|date:"d M Y \a\t H:i A" }}</span>
+          </div>
+          <div class="col-sm-4 border-start border-custom ps-sm-4">
+            <span class="d-block small text-muted uppercase">Status Info</span>
             {% if report.is_edited %}
-              <span class="badge rounded-pill bg-warning-subtle text-warning d-block mt-1 w-fit-content">Edited by Admin</span>
+            <span class="badge rounded-pill bg-warning-subtle text-warning">Edited by Admin</span>
+            {% else %}
+            <span class="badge rounded-pill bg-success-subtle text-success">Submitted</span>
             {% endif %}
+            <span class="d-block small text-muted mt-1">{{ report.word_count }} words</span>
           </div>
         </div>
 
         <div class="mb-4">
           <label class="form-label uppercase small text-muted d-block mb-2">Report Content</label>
-          <div class="p-3 rounded border border-custom" style="white-space: pre-wrap; line-height: 1.8; font-size: 14.5px; background: var(--surface); color: var(--text);">{{ report.report_text }}</div>
+          {% if report.activities.all %}
+            <div class="table-responsive rounded border border-custom">
+              <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light">
+                  <tr style="background-color: var(--surface-2);">
+                    <th class="py-3 px-4" style="width: 20%; min-width: 100px;">Activity</th>
+                    <th class="py-3 px-4" style="width: 65%;">Report Description</th>
+                    <th class="py-3 px-4 text-end" style="width: 15%; min-width: 80px;">Quantity</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for ra in report.activities.all %}
+                    <tr class="border-bottom border-custom">
+                      <td class="py-3 px-4"><span class="badge px-3 py-2 rounded-pill font-monospace" style="font-size: 12.5px; background-color: var(--primary); color: white;">{{ ra.activity.name }}</span></td>
+                      <td class="py-3 px-4"><div style="white-space: pre-wrap; line-height: 1.6; font-size: 14.5px; color: var(--text);">{{ ra.report_text }}</div></td>
+                      <td class="py-3 px-4 text-end fw-700 text-primary-custom" style="font-size: 14.5px;">{{ ra.quantity }}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <div class="p-3 rounded border border-custom" style="white-space: pre-wrap; line-height: 1.8; font-size: 14.5px; background: var(--surface); color: var(--text);">{{ report.report_text }}</div>
+          {% endif %}
         </div>
 
         <div class="d-flex justify-content-between align-items-center border-top pt-3 border-custom">

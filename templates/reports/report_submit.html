@@ -9,33 +9,95 @@
 
 {% block content %}
 <div class="row justify-content-center">
-  <div class="col-lg-8 col-md-10">
+  <div class="col-lg-10">
     <div class="card border-0 rounded-custom shadow-sm bg-surface">
       <div class="card-header py-3">
         <h2 class="card-title"><i class="bi bi-pencil-square text-accent"></i> Submit Daily Work Report</h2>
       </div>
       <div class="card-body p-4">
         <div class="alert alert-info py-2 px-3 mb-4 d-flex align-items-center gap-2" role="alert" style="border-radius: var(--radius-sm);">
-          <i class="bi bi-info-circle-fill"></i>
+          <i class="bi bi-info-circle-fill text-primary-custom"></i>
           <div>
             <strong>Info:</strong> You are submitting the report for today: <strong>{% now "l, d F Y" %}</strong>
           </div>
         </div>
 
-        <form method="post" data-loading>
+        <form method="post" data-loading id="report-form">
           {% csrf_token %}
           
-          <div class="mb-3">
-            <label for="id_report_text" class="form-label fw-600">Daily Work Activity Summary</label>
-            {{ form.report_text }}
-            {% if form.report_text.errors %}
-              <div class="invalid-feedback d-block">{{ form.report_text.errors|first }}</div>
-            {% endif %}
-            
-            <div class="d-flex justify-content-between align-items-center mt-2">
-              <span class="text-muted small">Minimum required: 50 characters</span>
-              <div id="char-counter" class="char-counter">0 / 5000 characters (min: 50)</div>
+          <div id="activities-container">
+            <!-- Headers -->
+            <div class="row mb-2 d-none d-md-flex align-items-center fw-700 text-muted border-bottom pb-2 border-custom">
+              <div class="col-md-3">Activity</div>
+              <div class="col-md-6">Report Description (Min: 10 chars)</div>
+              <div class="col-md-2">Quantity</div>
+              <div class="col-md-1 text-center">Action</div>
             </div>
+
+            <!-- Activity Rows -->
+            {% if submitted_entries %}
+              {% for entry in submitted_entries %}
+                <div class="row g-2 activity-row mb-3 align-items-start border-bottom pb-3 border-custom pb-md-0 border-md-0 pt-2 pt-md-0">
+                  <div class="col-md-3">
+                    <label class="form-label d-md-none fw-600 text-muted small uppercase">Activity</label>
+                    <select name="activity" class="form-select" required>
+                      <option value="">-- Select Activity --</option>
+                      {% for act in active_activities %}
+                        <option value="{{ act.id }}" {% if entry.activity_id == act.id %}selected{% endif %}>{{ act.name }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label d-md-none fw-600 text-muted small uppercase">Report Description</label>
+                    <textarea name="report" class="form-control" rows="2" placeholder="Describe the work performed..." required minlength="10" maxlength="5000">{{ entry.report_text }}</textarea>
+                  </div>
+                  <div class="col-md-2">
+                    <label class="form-label d-md-none fw-600 text-muted small uppercase">Quantity</label>
+                    <input type="number" name="quantity" class="form-control" value="{{ entry.quantity }}" min="1" placeholder="e.g. 10" required>
+                  </div>
+                  <div class="col-md-1 text-center">
+                    <label class="form-label d-md-none d-block mb-1">&nbsp;</label>
+                    <button type="button" class="btn btn-outline-danger btn-delete-row" title="Remove activity">
+                      <i class="bi bi-trash3"></i>
+                    </button>
+                  </div>
+                </div>
+              {% endfor %}
+            {% else %}
+              <!-- First Default Row -->
+              <div class="row g-2 activity-row mb-3 align-items-start border-bottom pb-3 border-custom pb-md-0 border-md-0 pt-2 pt-md-0">
+                <div class="col-md-3">
+                  <label class="form-label d-md-none fw-600 text-muted small uppercase">Activity</label>
+                  <select name="activity" class="form-select" required>
+                    <option value="">-- Select Activity --</option>
+                    {% for act in active_activities %}
+                      <option value="{{ act.id }}">{{ act.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label d-md-none fw-600 text-muted small uppercase">Report Description</label>
+                  <textarea name="report" class="form-control" rows="2" placeholder="Describe the work performed..." required minlength="10" maxlength="5000"></textarea>
+                </div>
+                <div class="col-md-2">
+                  <label class="form-label d-md-none fw-600 text-muted small uppercase">Quantity</label>
+                  <input type="number" name="quantity" class="form-control" min="1" placeholder="e.g. 10" required>
+                </div>
+                <div class="col-md-1 text-center">
+                  <label class="form-label d-md-none d-block mb-1">&nbsp;</label>
+                  <button type="button" class="btn btn-outline-danger btn-delete-row" title="Remove activity">
+                    <i class="bi bi-trash3"></i>
+                  </button>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- Add Button -->
+          <div class="mb-4 mt-3">
+            <button type="button" id="btn-add-activity" class="btn btn-accent rounded-pill px-4">
+              <i class="bi bi-plus-lg me-1"></i> Add Activity
+            </button>
           </div>
 
           <div class="d-flex gap-2 justify-content-end border-top pt-3 border-custom">
@@ -49,4 +111,79 @@
     </div>
   </div>
 </div>
+
+<!-- Template for JavaScript Row Addition -->
+<template id="activity-row-template">
+  <div class="row g-2 activity-row mb-3 align-items-start border-bottom pb-3 border-custom pb-md-0 border-md-0 pt-2 pt-md-0">
+    <div class="col-md-3">
+      <label class="form-label d-md-none fw-600 text-muted small uppercase">Activity</label>
+      <select name="activity" class="form-select" required>
+        <option value="">-- Select Activity --</option>
+        {% for act in active_activities %}
+          <option value="{{ act.id }}">{{ act.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label d-md-none fw-600 text-muted small uppercase">Report Description</label>
+      <textarea name="report" class="form-control" rows="2" placeholder="Describe the work performed..." required minlength="10" maxlength="5000"></textarea>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label d-md-none fw-600 text-muted small uppercase">Quantity</label>
+      <input type="number" name="quantity" class="form-control" min="1" placeholder="e.g. 10" required>
+    </div>
+    <div class="col-md-1 text-center">
+      <label class="form-label d-md-none d-block mb-1">&nbsp;</label>
+      <button type="button" class="btn btn-outline-danger btn-delete-row" title="Remove activity">
+        <i class="bi bi-trash3"></i>
+      </button>
+    </div>
+  </div>
+</template>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('activities-container');
+    const addBtn = document.getElementById('btn-add-activity');
+    const template = document.getElementById('activity-row-template');
+
+    // Event listener for adding a row
+    addBtn.addEventListener('click', function() {
+      const clone = template.content.cloneNode(true);
+      container.appendChild(clone);
+      updateDeleteButtons();
+    });
+
+    // Event listener for deleting a row
+    container.addEventListener('click', function(e) {
+      if (e.target.closest('.btn-delete-row')) {
+        const rows = container.querySelectorAll('.activity-row');
+        if (rows.length > 1) {
+          e.target.closest('.activity-row').remove();
+          updateDeleteButtons();
+        }
+      }
+    });
+
+    function updateDeleteButtons() {
+      const rows = container.querySelectorAll('.activity-row');
+      rows.forEach(row => {
+        const btn = row.querySelector('.btn-delete-row');
+        if (rows.length === 1) {
+          btn.setAttribute('disabled', 'disabled');
+          btn.classList.add('opacity-50');
+        } else {
+          btn.removeAttribute('disabled');
+          btn.classList.remove('opacity-50');
+        }
+      });
+    }
+
+    // Initial check
+    updateDeleteButtons();
+  });
+</script>
 {% endblock %}

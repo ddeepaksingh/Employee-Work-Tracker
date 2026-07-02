@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}Activities{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">Home</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Activities</li>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Activities</h1>
+    <p class="page-subtitle">Create and manage activities that employees can log reports against</p>
+  </div>
+  <div>
+    <a href="{% url 'reports:admin_activity_create' %}" class="btn btn-primary">
+      <i class="bi bi-plus-lg me-1"></i> Add Activity
+    </a>
+  </div>
+</div>
+
+<!-- Filters & Search Card -->
+<div class="card border-0 rounded-custom shadow-sm mb-4 bg-surface">
+  <div class="card-body py-3">
+    <form method="get" class="row g-3 align-items-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+          <span class="input-group-text bg-transparent border-end-0 border-custom text-muted"><i class="bi bi-search"></i></span>
+          <input type="text" name="q" value="{{ search_query }}" class="form-control border-start-0" placeholder="Search activities...">
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-2">
+        <button type="submit" class="btn btn-outline-primary w-100">Search</button>
+      </div>
+      {% if search_query %}
+        <div class="col-md-6 col-lg-2">
+          <a href="{% url 'reports:admin_activity_list' %}" class="btn btn-light w-100">Clear</a>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+</div>
+
+<!-- Activity List Table -->
+<div class="card border-0 rounded-custom shadow-sm bg-surface">
+  <div class="card-body p-0">
+    {% if activities %}
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Activity Name</th>
+              <th>Description</th>
+              <th>Status</th>
+              <th>Created Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for act in activities %}
+              <tr>
+                <td><strong class="text-primary-custom font-monospace">{{ act.name }}</strong></td>
+                <td><span class="text-muted text-truncate d-inline-block" style="max-width: 300px;">{{ act.description|default:"—" }}</span></td>
+                <td>
+                  {% if act.is_active %}
+                    <span class="status-pill badge-active text-success">Active</span>
+                  {% else %}
+                    <span class="status-pill badge-inactive text-danger">Inactive</span>
+                  {% endif %}
+                </td>
+                <td>{{ act.created_at|date:"d M Y" }}</td>
+                <td>
+                  <div class="d-flex gap-1">
+                    <a href="{% url 'reports:admin_activity_update' act.pk %}" class="btn btn-light btn-sm text-warning" data-bs-toggle="tooltip" title="Edit"><i class="bi bi-pencil"></i></a>
+                    <a href="{% url 'reports:admin_activity_delete' act.pk %}" class="btn btn-light btn-sm text-danger" data-bs-toggle="tooltip" title="Delete"><i class="bi bi-trash"></i></a>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% if is_paginated %}
+        <div class="card-footer d-flex justify-content-center py-3">
+          {% include 'partials/pagination.html' %}
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="empty-state">
+        <i class="bi bi-list-task empty-state-icon"></i>
+        <h3 class="empty-state-title">No Activities Found</h3>
+        <p class="empty-state-text">No activities match your search criteria. Create one using the button above.</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

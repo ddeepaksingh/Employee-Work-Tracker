@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if object %}Edit{% else %}Add{% endif %} Activity{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">Home</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'reports:admin_activity_list' %}">Activities</a></li>
+  <li class="breadcrumb-item active" aria-current="page">{% if object %}Edit{% else %}Add{% endif %} Activity</li>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card border-0 rounded-custom shadow-sm bg-surface">
+      <div class="card-header py-3">
+        <h2 class="card-title">
+          <i class="bi bi-list-task text-accent"></i> 
+          {% if object %}Edit Activity: {{ object.name }}{% else %}Add New Activity{% endif %}
+        </h2>
+      </div>
+      <div class="card-body p-4">
+        <form method="post" data-loading>
+          {% csrf_token %}
+          
+          <div class="mb-3">
+            <label for="id_activity_name" class="form-label fw-600">Activity Name</label>
+            {{ form.name }}
+            {% if form.name.errors %}
+              <div class="invalid-feedback d-block">{{ form.name.errors|first }}</div>
+            {% endif %}
+          </div>
+
+          <div class="mb-3">
+            <label for="id_activity_desc" class="form-label fw-600">Description</label>
+            {{ form.description }}
+            {% if form.description.errors %}
+              <div class="invalid-feedback d-block">{{ form.description.errors|first }}</div>
+            {% endif %}
+          </div>
+
+          <div class="mb-4 form-check">
+            {{ form.is_active }}
+            <label class="form-check-label" for="id_activity_active">Active status (employees can submit reports under active activities)</label>
+            {% if form.is_active.errors %}
+              <div class="invalid-feedback d-block">{{ form.is_active.errors|first }}</div>
+            {% endif %}
+          </div>
+
+          <div class="d-flex gap-2 justify-content-end">
+            <a href="{% url 'reports:admin_activity_list' %}" class="btn btn-light px-4">Cancel</a>
+            <button type="submit" class="btn btn-primary px-4">
+              {% if object %}Update{% else %}Create{% endif %} Activity
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
