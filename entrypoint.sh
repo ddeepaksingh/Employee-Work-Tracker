@@ -20,23 +20,28 @@ until nc -z "$DB_HOST" "$DB_PORT"; do
     sleep 2
 done
 
+echo "===== CHOWN MOUNTED VOLUMES ====="
+chown -R appuser:appgroup /app/media /app/staticfiles /app/logs
+
 echo "===== MIGRATE ====="
-python manage.py migrate --noinput
+su-exec appuser python manage.py migrate --noinput
 
 echo "===== COLLECTSTATIC ====="
-python manage.py collectstatic --noinput
+su-exec appuser python manage.py collectstatic --noinput
 
 echo "===== SUPERUSER ====="
 
-python manage.py shell <<EOF
+su-exec appuser python manage.py shell <<EOF
 print("shell ok")
 EOF
 
 echo "===== GUNICORN ====="
 
-exec gunicorn \
+exec su-exec appuser gunicorn \
     --bind 0.0.0.0:8000 \
     --workers 3 \
+    --worker-class gthread \
+    --threads 4 \
     --access-logfile - \
     --error-logfile - \
     config.wsgi:application

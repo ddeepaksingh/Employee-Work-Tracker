@@ -444,3 +444,292 @@ INFO 2026-07-01 16:17:53,617 log 7160 12712 "GET /notifications/ HTTP/1.1" 200 9
 INFO 2026-07-01 16:17:55,349 log 7160 12712 "GET /reports/admin/ HTTP/1.1" 200 15962
 INFO 2026-07-01 16:17:55,854 log 7160 12712 "GET /dashboard/ HTTP/1.1" 200 16986
 INFO 2026-07-01 16:18:04,627 log 7160 12712 "GET /reports/admin/3/ HTTP/1.1" 200 12932
+INFO 2026-07-15 11:43:25,209 autoreload 11140 1420 Watching for file changes with StatReloader
+INFO 2026-07-15 11:43:33,203 log 11140 15108 "GET / HTTP/1.1" 302 0
+INFO 2026-07-15 11:43:33,237 log 11140 15108 "GET /dashboard/ HTTP/1.1" 302 0
+INFO 2026-07-15 11:43:33,733 log 11140 15108 "GET /accounts/login/?next=/dashboard/ HTTP/1.1" 200 2723
+INFO 2026-07-15 11:43:33,867 log 11140 15108 "GET /static/css/style.css HTTP/1.1" 200 25605
+INFO 2026-07-15 11:43:33,992 log 11140 23988 "GET /static/js/app.js HTTP/1.1" 200 7951
+INFO 2026-07-15 11:43:52,452 log 11140 23988 "POST /accounts/login/ HTTP/1.1" 200 3014
+INFO 2026-07-15 11:46:06,855 autoreload 24124 13864 Watching for file changes with StatReloader
+INFO 2026-07-15 11:46:19,394 log 24124 22804 "GET / HTTP/1.1" 302 0
+INFO 2026-07-15 11:46:19,396 log 24124 22804 "GET /dashboard/ HTTP/1.1" 302 0
+INFO 2026-07-15 11:46:19,423 log 24124 22804 "GET /accounts/login/?next=/dashboard/ HTTP/1.1" 200 2723
+INFO 2026-07-15 11:46:45,202 views 24124 22804 User 'user' logged in from 127.0.0.1
+INFO 2026-07-15 11:46:45,280 log 24124 22804 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-07-15 11:46:45,635 log 24124 22804 "GET /dashboard/ HTTP/1.1" 200 17478
+INFO 2026-07-15 11:46:45,656 log 24124 22804 "GET /static/css/style.css?v=2 HTTP/1.1" 200 25605
+INFO 2026-07-15 11:46:48,917 log 24124 22804 "GET /employees/ HTTP/1.1" 200 12318
+INFO 2026-07-15 11:46:57,838 log 24124 22804 "GET /admin/ HTTP/1.1" 200 12835
+INFO 2026-07-15 11:46:57,864 log 24124 22804 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:57,865 log 24124 21172 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:57,865 log 24124 8348 "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:57,865 log 24124 24828 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:57,866 log 24124 22864 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:57,866 log 24124 9624 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:57,869 log 24124 9624 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:57,873 log 24124 24828 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:57,873 log 24124 22864 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:57,873 log 24124 9624 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:59,485 log 24124 9624 "GET /admin/auth/user/ HTTP/1.1" 200 18815
+INFO 2026-07-15 11:46:59,506 log 24124 9624 "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:59,506 log 24124 8348 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:59,507 log 24124 24828 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:59,508 log 24124 22804 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:59,510 log 24124 21172 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:59,510 log 24124 9624 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:59,511 log 24124 8348 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:59,511 log 24124 24828 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:59,512 log 24124 22804 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:59,521 log 24124 24828 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:59,521 log 24124 22804 "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:59,533 log 24124 22804 "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 645
+INFO 2026-07-15 11:46:59,535 log 24124 22804 "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:59,585 log 24124 22864 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2026-07-15 11:46:59,639 log 24124 22864 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2026-07-15 11:46:59,641 log 24124 22864 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2026-07-15 11:47:01,972 log 24124 22864 "GET /admin/auth/user/4/change/ HTTP/1.1" 200 30545
+INFO 2026-07-15 11:47:01,987 log 24124 24828 "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:47:01,992 log 24124 9624 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2026-07-15 11:47:01,992 log 24124 24828 "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:47:02,067 log 24124 21172 "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 16428
+INFO 2026-07-15 11:47:02,068 log 24124 8348 "GET /static/admin/js/SelectBox.js HTTP/1.1" 200 4530
+INFO 2026-07-15 11:47:02,072 log 24124 8348 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:47:02,078 log 24124 22864 "GET /static/admin/js/calendar.js HTTP/1.1" 200 9159
+INFO 2026-07-15 11:47:02,079 log 24124 22804 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19698
+INFO 2026-07-15 11:47:02,081 log 24124 22864 "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:47:02,142 log 24124 8348 "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 805
+INFO 2026-07-15 11:47:02,142 log 24124 22864 "GET /static/admin/img/selector-icons.svg HTTP/1.1" 200 2387
+INFO 2026-07-15 11:47:02,156 log 24124 22804 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1112
+INFO 2026-07-15 11:47:04,186 log 24124 22804 "GET /admin/auth/ HTTP/1.1" 200 6037
+INFO 2026-07-15 11:47:05,419 log 24124 22804 "GET /admin/auth/user/ HTTP/1.1" 200 18815
+INFO 2026-07-15 11:47:05,437 log 24124 22804 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2026-07-15 11:47:12,457 log 24124 22804 "GET /admin/auth/group/ HTTP/1.1" 200 13361
+INFO 2026-07-15 11:47:12,474 log 24124 22804 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2026-07-15 11:47:13,347 log 24124 22804 "GET /admin/ HTTP/1.1" 200 12835
+INFO 2026-07-15 11:47:14,741 log 24124 22804 "GET /admin/core/companysettings/ HTTP/1.1" 200 13800
+INFO 2026-07-15 11:47:16,017 log 24124 22804 "GET /admin/core/activitylog/ HTTP/1.1" 200 27236
+INFO 2026-07-15 11:47:16,042 log 24124 22804 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2026-07-15 11:47:28,661 log 24124 22804 "GET /admin/notifications/notification/ HTTP/1.1" 200 19140
+INFO 2026-07-15 11:47:28,675 log 24124 22804 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2026-07-15 11:47:39,658 log 24124 22804 "GET /admin/reports/dailyreport/ HTTP/1.1" 200 18927
+INFO 2026-07-15 11:47:39,674 log 24124 22804 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2026-07-15 11:48:13,492 log 24124 22804 "GET /admin/ HTTP/1.1" 200 12835
+INFO 2026-07-15 11:48:13,508 log 24124 22804 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:48:13,509 log 24124 8348 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:48:13,509 log 24124 21172 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:48:13,509 log 24124 24828 "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:48:13,509 log 24124 22864 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:48:13,510 log 24124 9624 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:48:13,511 log 24124 9624 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:48:14,986 log 24124 9624 "GET /admin/auth/group/ HTTP/1.1" 200 13361
+INFO 2026-07-15 11:48:15,006 log 24124 8348 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:48:15,006 log 24124 9624 "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:48:15,006 log 24124 22804 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:48:15,007 log 24124 21172 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:48:15,008 log 24124 24828 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:48:15,009 log 24124 8348 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:48:15,010 log 24124 22804 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:48:15,010 log 24124 22864 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2026-07-15 11:48:15,017 log 24124 22864 "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2026-07-15 11:48:15,019 log 24124 22804 "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:48:16,052 log 24124 22804 "GET /admin/auth/user/ HTTP/1.1" 200 18815
+INFO 2026-07-15 11:48:16,072 log 24124 22804 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2026-07-15 11:48:16,738 log 24124 22804 "GET /admin/ HTTP/1.1" 200 12835
+INFO 2026-07-15 11:48:18,781 log 24124 22804 "GET / HTTP/1.1" 302 0
+INFO 2026-07-15 11:48:18,803 log 24124 22804 "GET /dashboard/ HTTP/1.1" 200 16986
+INFO 2026-07-15 11:48:20,668 log 24124 22804 "GET /reports/admin/ HTTP/1.1" 200 15962
+INFO 2026-07-15 11:48:21,407 log 24124 22804 "GET /reports/admin/activities/ HTTP/1.1" 200 11574
+INFO 2026-07-15 11:48:22,285 log 24124 22804 "GET /reports/admin/?date_range=today HTTP/1.1" 200 12823
+INFO 2026-07-15 11:48:27,959 log 24124 22804 "GET /reports/admin/activities/ HTTP/1.1" 200 11574
+INFO 2026-07-15 11:48:47,545 log 24124 22232 "GET /reports/admin/activities/ HTTP/1.1" 302 0
+INFO 2026-07-15 11:48:47,556 log 24124 22232 "GET /accounts/login/?next=/reports/admin/activities/ HTTP/1.1" 200 2723
+INFO 2026-07-15 11:48:47,615 log 24124 10332 "GET /static/js/app.js HTTP/1.1" 200 7951
+INFO 2026-07-15 11:48:47,616 log 24124 22232 "GET /static/css/style.css HTTP/1.1" 200 25605
+WARNING 2026-07-15 11:48:48,328 log 24124 10332 Not Found: /favicon.ico
+WARNING 2026-07-15 11:48:48,328 log 24124 10332 "GET /favicon.ico HTTP/1.1" 404 3434
+INFO 2026-07-15 11:48:50,289 log 24124 10332 "POST /accounts/login/ HTTP/1.1" 200 3013
+INFO 2026-07-15 11:49:23,384 log 24124 10332 "POST /accounts/login/ HTTP/1.1" 200 3013
+INFO 2026-07-15 11:49:32,233 log 24124 10332 "POST /accounts/login/ HTTP/1.1" 200 3021
+INFO 2026-07-15 11:49:38,706 log 24124 10332 "POST /accounts/login/ HTTP/1.1" 200 3021
+INFO 2026-07-15 11:49:51,210 log 24124 22804 "GET /employees/ HTTP/1.1" 200 12318
+INFO 2026-07-15 11:49:52,350 log 24124 22804 "GET /employees/add/ HTTP/1.1" 200 13876
+INFO 2026-07-15 11:49:53,472 log 24124 22804 "GET /employees/departments/ HTTP/1.1" 200 11760
+INFO 2026-07-15 11:49:54,873 log 24124 22804 "GET /employees/ HTTP/1.1" 200 12318
+INFO 2026-07-15 11:49:58,502 log 24124 22804 "GET /employees/1/delete/ HTTP/1.1" 200 9631
+INFO 2026-07-15 11:49:59,649 log 24124 22804 "POST /employees/1/delete/ HTTP/1.1" 302 0
+INFO 2026-07-15 11:49:59,667 log 24124 22804 "GET /employees/ HTTP/1.1" 200 10567
+INFO 2026-07-15 11:50:01,125 log 24124 22804 "GET /employees/add/ HTTP/1.1" 200 13876
+INFO 2026-07-15 11:50:57,688 log 24124 22804 "POST /employees/add/ HTTP/1.1" 302 0
+INFO 2026-07-15 11:50:57,711 log 24124 22804 "GET /employees/ HTTP/1.1" 200 12804
+INFO 2026-07-15 11:51:41,475 log 24124 22804 "GET /admin/ HTTP/1.1" 200 12835
+INFO 2026-07-15 11:51:41,504 log 24124 8348 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:51:41,504 log 24124 9624 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:51:41,504 log 24124 22864 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:51:41,504 log 24124 22804 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:51:41,504 log 24124 21172 "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:51:41,505 log 24124 24828 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:51:41,507 log 24124 24828 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:51:43,121 log 24124 24828 "GET /admin/auth/user/ HTTP/1.1" 200 18770
+INFO 2026-07-15 11:51:43,138 log 24124 24828 "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:51:43,139 log 24124 22864 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:51:43,139 log 24124 9624 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:51:43,139 log 24124 22804 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:51:43,141 log 24124 8348 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:51:43,141 log 24124 24828 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:51:43,142 log 24124 22864 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:51:43,143 log 24124 24828 "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2026-07-15 11:51:43,144 log 24124 21172 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2026-07-15 11:51:43,145 log 24124 21172 "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:51:58,267 log 24124 10332 "POST /accounts/login/ HTTP/1.1" 200 3010
+INFO 2026-07-15 11:59:25,451 autoreload 20348 9268 Watching for file changes with StatReloader
+INFO 2026-07-15 11:59:29,404 log 20348 1712 "GET /admin/auth/user/ HTTP/1.1" 302 0
+INFO 2026-07-15 11:59:29,654 log 20348 1712 "GET /admin/login/?next=/admin/auth/user/ HTTP/1.1" 200 4097
+INFO 2026-07-15 11:59:29,657 log 20348 1712 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:59:29,670 log 20348 12608 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:59:29,670 log 20348 8752 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:59:29,670 log 20348 1712 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:59:29,670 log 20348 25408 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:59:29,672 log 20348 25408 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:59:29,680 log 20348 8520 "GET /static/admin/css/login.css HTTP/1.1" 200 951
+INFO 2026-07-15 11:59:41,506 log 20348 8520 "POST /admin/login/?next=/admin/auth/user/ HTTP/1.1" 302 0
+INFO 2026-07-15 11:59:41,838 log 20348 8520 "GET /admin/auth/user/ HTTP/1.1" 200 16986
+INFO 2026-07-15 11:59:41,862 log 20348 8520 "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2026-07-15 11:59:41,862 log 20348 5660 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:59:41,863 log 20348 8752 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:59:41,863 log 20348 12608 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:59:41,863 log 20348 1712 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:59:41,863 log 20348 5660 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:59:41,863 log 20348 8520 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:59:41,863 log 20348 8520 "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2026-07-15 11:59:41,879 log 20348 25408 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2026-07-15 11:59:42,347 log 20348 25408 "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2026-07-15 11:59:51,245 log 20348 25408 "GET / HTTP/1.1" 302 0
+INFO 2026-07-15 11:59:51,288 log 20348 25408 "GET /dashboard/ HTTP/1.1" 200 14091
+INFO 2026-07-15 11:59:54,512 log 20348 25408 "GET /reports/admin/ HTTP/1.1" 200 12476
+INFO 2026-07-15 11:59:55,463 log 20348 25408 "GET /reports/admin/activities/ HTTP/1.1" 200 9538
+INFO 2026-07-15 11:59:56,156 log 20348 25408 "GET /reports/admin/?date_range=today HTTP/1.1" 200 12656
+INFO 2026-07-15 11:59:57,780 log 20348 25408 "GET /employees/ HTTP/1.1" 200 9936
+INFO 2026-07-15 11:59:58,959 log 20348 25408 "GET /employees/add/ HTTP/1.1" 200 13634
+INFO 2026-07-15 12:00:00,913 log 20348 25408 "GET /employees/add/ HTTP/1.1" 200 13634
+INFO 2026-07-15 12:00:01,396 log 20348 25408 "GET /employees/departments/ HTTP/1.1" 200 9539
+INFO 2026-07-15 12:00:02,890 log 20348 25408 "GET /employees/departments/add/ HTTP/1.1" 200 9830
+INFO 2026-07-15 12:00:23,703 log 20348 25408 "POST /employees/departments/add/ HTTP/1.1" 302 0
+INFO 2026-07-15 12:00:23,721 log 20348 25408 "GET /employees/departments/ HTTP/1.1" 200 11256
+INFO 2026-07-15 12:00:25,874 log 20348 25408 "GET /employees/designations/ HTTP/1.1" 200 9763
+INFO 2026-07-15 12:00:27,425 log 20348 25408 "GET /employees/designations/add/ HTTP/1.1" 200 9917
+INFO 2026-07-15 12:00:42,357 log 20348 25408 "POST /employees/designations/add/ HTTP/1.1" 302 0
+INFO 2026-07-15 12:00:42,378 log 20348 25408 "GET /employees/designations/ HTTP/1.1" 200 11338
+INFO 2026-07-15 12:00:44,529 log 20348 25408 "GET /employees/departments/ HTTP/1.1" 200 10734
+INFO 2026-07-15 12:01:01,455 log 20348 25408 "GET /employees/add/ HTTP/1.1" 200 13749
+INFO 2026-07-15 12:01:02,225 log 20348 25408 "GET /employees/designations/ HTTP/1.1" 200 10817
+INFO 2026-07-15 12:01:03,119 log 20348 25408 "GET /employees/departments/ HTTP/1.1" 200 10734
+INFO 2026-07-15 12:01:03,754 log 20348 25408 "GET /employees/add/ HTTP/1.1" 200 13749
+INFO 2026-07-15 12:01:06,415 log 20348 25408 "GET /employees/add/ HTTP/1.1" 200 13749
+INFO 2026-07-15 12:01:53,542 log 20348 25408 "POST /employees/add/ HTTP/1.1" 302 0
+INFO 2026-07-15 12:01:53,556 log 20348 25408 "GET /employees/ HTTP/1.1" 200 12746
+INFO 2026-07-15 12:02:08,116 views 20348 6824 User 'a' logged in from 127.0.0.1
+INFO 2026-07-15 12:02:08,187 log 20348 6824 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-07-15 12:02:08,248 log 20348 6824 "GET /dashboard/ HTTP/1.1" 200 12444
+INFO 2026-07-15 12:02:08,323 log 20348 6824 "GET /static/css/style.css?v=2 HTTP/1.1" 200 25605
+INFO 2026-07-15 12:02:10,404 log 20348 6824 "GET /reports/history/ HTTP/1.1" 200 10186
+INFO 2026-07-15 12:02:11,342 log 20348 6824 "GET /reports/submit/ HTTP/1.1" 200 13557
+INFO 2026-07-15 12:02:20,577 log 20348 25408 "GET /reports/admin/activities/ HTTP/1.1" 200 9538
+INFO 2026-07-15 12:02:21,496 log 20348 25408 "GET /reports/admin/ HTTP/1.1" 200 12587
+INFO 2026-07-15 12:02:25,713 log 20348 25408 "GET /reports/admin/activities/ HTTP/1.1" 200 9538
+INFO 2026-07-15 12:02:27,259 log 20348 25408 "GET /reports/admin/activities/add/ HTTP/1.1" 200 9933
+INFO 2026-07-15 12:02:32,703 log 20348 25408 "POST /reports/admin/activities/add/ HTTP/1.1" 302 0
+INFO 2026-07-15 12:02:32,719 log 20348 25408 "GET /reports/admin/activities/ HTTP/1.1" 200 11130
+INFO 2026-07-15 12:02:36,690 log 20348 6824 "GET /reports/submit/ HTTP/1.1" 200 13681
+INFO 2026-07-15 12:03:17,286 log 20348 6824 "POST /reports/submit/ HTTP/1.1" 302 0
+INFO 2026-07-15 12:03:17,304 log 20348 6824 "GET /dashboard/ HTTP/1.1" 200 12511
+INFO 2026-07-15 12:03:22,070 log 20348 6824 "GET /notifications/ HTTP/1.1" 200 8548
+INFO 2026-07-15 12:03:27,609 log 20348 25408 "GET /reports/admin/activities/ HTTP/1.1" 200 10738
+INFO 2026-07-15 12:03:29,389 log 20348 25408 "GET /notifications/ HTTP/1.1" 200 9461
+INFO 2026-07-15 12:03:43,229 log 20348 25408 "GET /employees/ HTTP/1.1" 200 12227
+INFO 2026-07-15 12:03:45,550 log 20348 25408 "GET /reports/admin/activities/ HTTP/1.1" 200 10611
+INFO 2026-07-15 12:03:46,205 log 20348 25408 "GET /reports/admin/ HTTP/1.1" 200 14320
+INFO 2026-07-15 12:03:47,682 log 20348 25408 "GET /reports/admin/1/ HTTP/1.1" 200 12246
+ERROR 2026-07-15 12:03:49,519 log 20348 25408 Internal Server Error: /reports/admin/1/edit/
+Traceback (most recent call last):
+  File "E:\Attendence\v2-30-06-2026\copy  form server v2\production\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Attendence\v2-30-06-2026\copy  form server v2\production\.venv\Lib\site-packages\django\core\handlers\base.py", line 221, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "E:\Attendence\v2-30-06-2026\copy  form server v2\production\.venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Attendence\v2-30-06-2026\copy  form server v2\production\.venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Attendence\v2-30-06-2026\copy  form server v2\production\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Attendence\v2-30-06-2026\copy  form server v2\production\.venv\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Attendence\v2-30-06-2026\copy  form server v2\production\.venv\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Attendence\v2-30-06-2026\copy  form server v2\production\.venv\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Attendence\v2-30-06-2026\copy  form server v2\production\.venv\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "E:\Attendence\v2-30-06-2026\copy  form server v2\production\.venv\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Attendence\v2-30-06-2026\copy  form server v2\production\.venv\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Attendence\v2-30-06-2026\copy  form server v2\production\.venv\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Attendence\v2-30-06-2026\copy  form server v2\production\.venv\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "E:\Attendence\v2-30-06-2026\copy  form server v2\production\.venv\Lib\site-packages\django\template\loader_tags.py", line 66, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Attendence\v2-30-06-2026\copy  form server v2\production\.venv\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Attendence\v2-30-06-2026\copy  form server v2\production\.venv\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "E:\Attendence\v2-30-06-2026\copy  form server v2\production\.venv\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Attendence\v2-30-06-2026\copy  form server v2\production\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Attendence\v2-30-06-2026\copy  form server v2\production\.venv\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'admin_report_detail' with arguments '('',)' not found. 1 pattern(s) tried: ['reports/admin/(?P<pk>[0-9]+)/\\Z']
+ERROR 2026-07-15 12:03:49,524 log 20348 25408 "GET /reports/admin/1/edit/ HTTP/1.1" 500 170785
+INFO 2026-07-15 12:06:58,472 log 20348 23052 "GET /notifications/ HTTP/1.1" 200 8548
+INFO 2026-07-15 12:07:00,029 log 20348 23052 "GET /reports/submit/ HTTP/1.1" 302 0
+INFO 2026-07-15 12:07:00,040 log 20348 23052 "GET /reports/history/ HTTP/1.1" 200 11075
+INFO 2026-07-15 12:07:00,868 log 20348 23052 "GET /reports/history/ HTTP/1.1" 200 10547
+INFO 2026-07-15 12:07:02,841 log 20348 23052 "GET /reports/1/ HTTP/1.1" 200 10884
+INFO 2026-07-15 12:28:52,229 autoreload 20348 9268 E:\Attendence\v2-30-06-2026\copy  form server v2\production\apps\reports\views.py changed, reloading.
+INFO 2026-07-15 12:28:52,978 autoreload 13664 18860 Watching for file changes with StatReloader
+INFO 2026-07-15 12:29:08,680 log 13664 15304 "GET /reports/admin/1/edit/ HTTP/1.1" 200 15387
+INFO 2026-07-15 12:29:11,716 log 13664 15304 "GET /reports/admin/ HTTP/1.1" 200 14320
+INFO 2026-07-15 12:29:19,128 log 13664 15304 "GET /reports/admin/ HTTP/1.1" 200 14320
+INFO 2026-07-15 12:29:24,070 log 13664 15304 "GET /reports/admin/1/ HTTP/1.1" 200 12246
+INFO 2026-07-15 12:29:24,966 log 13664 15304 "GET /reports/admin/1/edit/ HTTP/1.1" 200 15387
+INFO 2026-07-15 12:29:55,664 log 13664 15304 "POST /reports/admin/1/edit/ HTTP/1.1" 302 0
+INFO 2026-07-15 12:29:55,706 log 13664 15304 "GET /reports/admin/1/ HTTP/1.1" 200 13405
+INFO 2026-07-15 12:29:58,254 log 13664 15304 "GET /reports/admin/ HTTP/1.1" 200 14326
+INFO 2026-07-15 12:30:07,558 log 13664 15304 "GET /reports/admin/ HTTP/1.1" 200 14326
+INFO 2026-07-15 12:30:09,946 log 13664 15304 "GET /reports/admin/1/ HTTP/1.1" 200 12904
+INFO 2026-07-15 12:30:16,221 log 13664 15304 "GET /core/activity-log/ HTTP/1.1" 200 16858
+INFO 2026-07-15 12:32:02,862 log 13664 15304 "GET /core/activity-log/?user=&action=LOGIN HTTP/1.1" 200 12053
+INFO 2026-07-15 12:32:05,120 log 13664 15304 "GET /core/activity-log/?user=&action=REPORT_UPDATED HTTP/1.1" 200 12071
+INFO 2026-07-15 12:32:08,013 log 13664 15304 "GET /core/activity-log/?user=&action=EMPLOYEE_EDITED HTTP/1.1" 200 11061
+INFO 2026-07-15 12:32:11,468 log 13664 15304 "GET /core/activity-log/?user=&action=EXPORT HTTP/1.1" 200 11061
+INFO 2026-07-15 12:32:16,270 log 13664 15304 "GET /core/activity-log/?user=&action=EMPLOYEE_ADDED HTTP/1.1" 200 12055

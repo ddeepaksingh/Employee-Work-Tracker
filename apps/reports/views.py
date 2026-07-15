@@ -303,6 +303,7 @@ class AdminReportEditView(AdminRequiredMixin, UpdateView):
     model = DailyReport
     form_class = AdminReportEditForm
     template_name = 'reports/admin_report_edit.html'
+    context_object_name = 'report'
 
     def get_success_url(self):
         return reverse_lazy('reports:admin_report_detail', kwargs={'pk': self.object.pk})

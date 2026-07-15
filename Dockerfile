@@ -24,7 +24,8 @@ RUN apk add --no-cache \
     libpq \
     libjpeg-turbo \
     libpng \
-    netcat-openbsd
+    netcat-openbsd \
+    su-exec
 
 # Copy virtual environment
 COPY --from=builder /app/.venv /app/.venv
@@ -49,8 +50,6 @@ RUN chown -R appuser:appgroup \
     /app/media \
     /app/staticfiles \
     /app/logs
-
-USER appuser
 
 EXPOSE 8000
 

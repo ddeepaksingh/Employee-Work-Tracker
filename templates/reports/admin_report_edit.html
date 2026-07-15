@@ -5,7 +5,7 @@
 {% block breadcrumb %}
   <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">Home</a></li>
   <li class="breadcrumb-item"><a href="{% url 'reports:admin_report_list' %}">Reports</a></li>
-  <li class="breadcrumb-item"><a href="{% url 'reports:admin_report_detail' report.pk %}">Details</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'reports:admin_report_detail' object.pk %}">Details</a></li>
   <li class="breadcrumb-item active" aria-current="page">Edit</li>
 {% endblock %}
 
@@ -124,7 +124,7 @@
           </div>
 
           <div class="d-flex gap-2 justify-content-end border-top pt-3 border-custom">
-            <a href="{% url 'reports:admin_report_detail' report.pk %}" class="btn btn-light px-4">Cancel</a>
+            <a href="{% url 'reports:admin_report_detail' object.pk %}" class="btn btn-light px-4">Cancel</a>
             <button type="submit" class="btn btn-primary px-4">Save Changes</button>
           </div>
         </form>
